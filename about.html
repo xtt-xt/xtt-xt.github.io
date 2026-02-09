@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>关于本测试 | 我的测试网站</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="icon" type="image/x-icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>📖</text></svg>">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>📖 关于这个测试网站</h1>
+            <p class="subtitle">了解这个GitHub Pages测试项目</p>
+            <nav>
+                <a href="index.html">🏠 首页</a>
+                <a href="about.html" class="active">📖 关于</a>
+                <a href="https://pages.github.com" target="_blank">🔗 官方指南</a>
+            </nav>
+        </header>
+        
+        <main>
+            <section class="about-content">
+                <h2>项目目的</h2>
+                <p>这个测试网站旨在帮助你快速验证 <strong>GitHub Pages</strong> 的部署是否成功，并提供一个可立即使用的模板。</p>
+                
+                <h2>🎯 核心特性</h2>
+                <ul>
+                    <li><strong>响应式设计</strong>：适应手机、平板和电脑屏幕</li>
+                    <li><strong>简洁导航</strong>：页面间可轻松跳转</li>
+                    <li><strong>现代界面</strong>：使用CSS Flexbox布局</li>
+                    <li><strong>即时反馈</strong>：显示部署时间和状态</li>
+                </ul>
+                
+                <h2>🛠️ 技术细节</h2>
+                <div class="tech-details">
+                    <div class="detail-item">
+                        <h4>HTML5</h4>
+                        <p>语义化标签，现代化结构</p>
+                    </div>
+                    <div class="detail-item">
+                        <h4>CSS3</h4>
+                        <p>Flexbox布局，响应式设计</p>
+                    </div>
+                    <div class="detail-item">
+                        <h4>JavaScript</h4>
+                        <p>基础交互功能</p>
+                    </div>
+                </div>
+                
+                <h2>🚀 如何使用</h2>
+                <ol>
+                    <li>将这三个文件上传到你的GitHub Pages仓库</li>
+                    <li>访问 <code>https://你的用户名.github.io</code></li>
+                    <li>如果看到此页面，说明部署成功！</li>
+                    <li>开始自定义内容，创建属于你自己的网站</li>
+                </ol>
+                
+                <div class="tip-box">
+                    <h3>💡 自定义提示</h3>
+                    <p>要修改此网站：</p>
+                    <ol>
+                        <li>用文本编辑器打开 <code>.html</code> 文件更改内容</li>
+                        <li>编辑 <code>style.css</code> 调整颜色、字体等样式</li>
+                        <li>使用<a href="index.html">返回首页</a>测试导航是否正常</li>
+                    </ol>
+                </div>
+            </section>
+        </main>
+        
+        <footer>
+            <p>© <span id="about-year">2023</span> GitHub Pages 测试项目 | 
+                <a href="index.html">返回首页</a>
+            </p>
+            <p class="note">这是一个用于测试的静态网站，不存储任何用户数据</p>
+        </footer>
+    </div>
+    
+    <script>
+        // 设置当前年份
+        document.getElementById('about-year').textContent = new Date().getFullYear();
+    </script>
+</body>
+</html>

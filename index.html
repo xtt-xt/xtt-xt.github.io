@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>我的测试网站 | 首页</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="icon" type="image/x-icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🚀</text></svg>">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>🌟 我的GitHub Pages测试网站</h1>
+            <p class="subtitle">成功部署于 GitHub Pages</p>
+            <nav>
+                <a href="index.html" class="active">🏠 首页</a>
+                <a href="about.html">📖 关于</a>
+                <a href="https://pages.github.com" target="_blank">🔗 官方指南</a>
+            </nav>
+        </header>
+        
+        <main>
+            <section class="hero">
+                <h2>恭喜！</h2>
+                <p>如果你能看到这个页面，说明你的 <strong>GitHub Pages</strong> 网站已经成功运行！</p>
+            </section>
+            
+            <section class="features">
+                <div class="card">
+                    <h3>✅ 功能验证</h3>
+                    <p>这个页面证明了：</p>
+                    <ul>
+                        <li>HTML/CSS 文件正确加载</li>
+                        <li>页面导航正常工作</li>
+                        <li>GitHub Pages 服务已激活</li>
+                    </ul>
+                </div>
+                
+                <div class="card">
+                    <h3>📂 文件结构</h3>
+                    <p>本测试网站包含：</p>
+                    <ul>
+                        <li><code>index.html</code> - 当前首页</li>
+                        <li><code>about.html</code> - 关于页面</li>
+                        <li><code>style.css</code> - 样式文件</li>
+                    </ul>
+                </div>
+                
+                <div class="card">
+                    <h3>🔄 下一步操作</h3>
+                    <p>你可以：</p>
+                    <ol>
+                        <li>用你自己的内容替换这些文字</li>
+                        <li>修改 <code>style.css</code> 调整样式</li>
+                        <li>添加更多HTML页面</li>
+                    </ol>
+                </div>
+            </section>
+            
+            <section class="status">
+                <h3>📊 部署状态</h3>
+                <div class="status-indicator active">
+                    <span class="dot"></span>
+                    <span>网站正在运行</span>
+                </div>
+                <p>部署时间：<span id="current-date">正在加载...</span></p>
+                <button onclick="refreshPage()">🔄 刷新页面</button>
+            </section>
+        </main>
+        
+        <footer>
+            <p>© <span id="current-year">2023</span> 由 GitHub Pages 托管 | 
+                <a href="https://github.com/你的用户名/你的用户名.github.io" target="_blank">查看源代码</a>
+            </p>
+            <p class="note">💡 提示：将上方链接中的“你的用户名”替换为你的实际GitHub用户名</p>
+        </footer>
+    </div>
+    
+    <script>
+        // 显示当前日期和时间
+        const now = new Date();
+        document.getElementById('current-date').textContent = now.toLocaleDateString('zh-CN') + ' ' + now.toLocaleTimeString('zh-CN');
+        document.getElementById('current-year').textContent = now.getFullYear();
+        
+        // 刷新页面函数
+        function refreshPage() {
+            location.reload();
+        }
+        
+        // 简单的控制台欢迎信息
+        console.log('🎉 GitHub Pages测试网站已加载！');
+    </script>
+</body>
+</html>
