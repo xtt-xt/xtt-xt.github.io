@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>游戏详情 - 星天(xtt) Kimi发现页</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- 引入主样式 -->
+    <link rel="stylesheet" href="style.css">
+    <!-- 引入Kimi页面专用样式 -->
+    <link rel="stylesheet" href="kimi-style.css">
+    <!-- 游戏详情页专用样式 -->
+    <link rel="stylesheet" href="game-detail-style.css">
+    <!-- 网站图标 -->
+    <link rel="icon" href="avatar.png" type="image/png">
+</head>
+<body>
+    <!-- 主题切换按钮 -->
+    <div class="theme-toggle" id="themeToggle" title="切换深浅主题" tabindex="0">
+        <i class="fas fa-moon"></i>
+    </div>
+
+    <!-- 返回按钮 -->
+    <div class="game-detail-nav">
+        <a href="kimi.html" class="back-button" title="返回游戏列表">
+            <i class="fas fa-arrow-left"></i> 返回游戏列表
+        </a>
+    </div>
+
+    <!-- 游戏详情头部 -->
+    <header class="section game-detail-header">
+        <div class="container">
+            <div class="game-header-content">
+                <div class="game-main-icon">
+                    <i id="game-icon" class="fas fa-robot fa-4x"></i>
+                </div>
+                <div class="game-header-info">
+                    <h1 id="game-title">AI对话游戏</h1>
+                    <p class="game-subtitle" id="game-subtitle">与AI进行智能对话的趣味体验</p>
+                    <div class="game-header-meta">
+                        <span class="game-status-badge" id="game-status">开发中</span>
+                        <span class="game-version" id="game-version">v0.1.0</span>
+                        <span class="game-update-date" id="game-update-date">最后更新: 2024-03-15</span>
+                    </div>
+                    <div class="game-tags" id="game-tags">
+                        <span class="game-tag">AI对话</span>
+                        <span class="game-tag">聊天</span>
+                        <span class="game-tag">互动</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- 游戏详情内容 -->
+    <section class="section game-detail-content">
+        <div class="container">
+            <div class="game-detail-grid">
+                <!-- 左侧：游戏介绍 -->
+                <div class="game-info-section">
+                    <h2>游戏介绍</h2>
+                    <div class="game-description" id="game-description">
+                        <p>这是一个基于Kimi AI的对话游戏，你可以与不同个性的AI角色进行有趣的对话。每个角色都有独特的背景故事和对话风格，让聊天变得更加生动有趣。</p>
+                        
+                        <h3>游戏特色</h3>
+                        <ul>
+                            <li>🤖 多个AI角色：每个角色都有独特的性格和背景故事</li>
+                            <li>💬 智能对话：基于Kimi AI的自然语言处理能力</li>
+                            <li>🎭 角色扮演：你可以选择不同身份与AI对话</li>
+                            <li>📚 话题丰富：支持科技、生活、娱乐、学习等多种话题</li>
+                        </ul>
+                        
+                        <h3>玩法说明</h3>
+                        <p>1. 选择一个你感兴趣的AI角色</p>
+                        <p>2. 开始对话，可以是闲聊或特定话题</p>
+                        <p>3. 观察AI的回应，体验智能对话的乐趣</p>
+                        <p>4. 可以切换角色或话题继续对话</p>
+                    </div>
+                </div>
+                
+                <!-- 右侧：游戏预览和技术信息 -->
+                <div class="game-sidebar">
+                    <div class="game-preview-box">
+                        <h3>游戏预览</h3>
+                        <div class="game-preview-image">
+                            <div class="preview-placeholder">
+                                <i class="fas fa-gamepad fa-3x"></i>
+                                <p>游戏界面预览图</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="game-tech-info">
+                        <h3>技术信息</h3>
+                        <div class="tech-info-list" id="tech-info-list">
+                            <!-- 技术信息通过JavaScript动态生成 -->
+                        </div>
+                    </div>
+                    
+                    <div class="game-links">
+                        <h3>相关链接</h3>
+                        <a href="#" class="game-link-button" id="game-play-link">
+                            <i class="fas fa-play"></i> 开始游戏
+                        </a>
+                        <a href="#" class="game-link-button secondary" id="game-source-link">
+                            <i class="fab fa-github"></i> 查看源码
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 游戏更新日志 -->
+    <section class="section game-changelog-section">
+        <div class="container">
+            <h2 class="section-title">游戏更新日志</h2>
+            <div class="game-changelog" id="game-changelog">
+                <!-- 更新日志通过JavaScript动态生成 -->
+            </div>
+        </div>
+    </section>
+
+    <!-- 页脚 -->
+    <footer>
+        <div class="container">
+            <p>© <span id="currentYear"></span> 星天(xtt). Kimi发现页面 · 本页面通过 GitHub Pages 托管。</p>
+            <p style="margin-top: 10px; font-size: 0.9em;">
+                <a href="kimi.html" style="color: var(--text-secondary); text-decoration: underline;" tabindex="0">返回游戏列表</a> | 
+                <a href="index.html" style="color: var(--text-secondary); text-decoration: underline;" tabindex="0">返回主站</a>
+            </p>
+        </div>
+    </footer>
+
+    <!-- 引入主脚本 -->
+    <script src="script.js"></script>
+    <!-- 游戏详情页专用脚本 -->
+    <script src="game-detail-script.js"></script>
+</body>
+</html>
