@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kimi发现页 - 星天(xtt)</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- 引入主样式 -->
+    <link rel="stylesheet" href="style.css">
+    <!-- 引入Kimi页面专用样式 -->
+    <link rel="stylesheet" href="kimi-style.css">
+    <!-- 网站图标 -->
+    <link rel="icon" href="avatar.jpg" type="image/jpeg">
+</head>
+<body>
+    <!-- 主题切换按钮 -->
+    <div class="theme-toggle" id="themeToggle" title="切换深浅主题" tabindex="0">
+        <i class="fas fa-moon"></i>
+    </div>
+
+    <!-- 返回主站按钮 -->
+    <a href="index.html" class="back-to-home" title="返回主站">
+        <i class="fas fa-home"></i>
+    </a>
+
+    <!-- 头部 -->
+    <header class="section kimi-header">
+        <div class="container">
+            <!-- 头像部分 -->
+            <div class="profile-pic">
+                <img class="profile-img" src="avatar.jpg" alt="星天(xtt)的头像">
+            </div>
+            <h1>星天(xtt) · Kimi发现页</h1>
+            <p class="tagline">探索AI与游戏的奇妙世界</p>
+            <div class="contact-links">
+                <a href="index.html" tabindex="0"><i class="fas fa-home"></i> 返回主站</a>
+                <a href="https://github.com/xtt-xt" target="_blank" tabindex="0"><i class="fab fa-github"></i> GitHub</a>
+                <a href="https://space.bilibili.com/1207935066?spm_id_from=333.1007.0.0" target="_blank" tabindex="0"><i class="fab fa-bilibili"></i> Bilibili</a>
+            </div>
+        </div>
+    </header>
+
+    <!-- 关于Kimi部分 -->
+    <section class="section kimi-intro">
+        <div class="container">
+            <h2 class="section-title">关于Kimi发现页</h2>
+            <div class="about-content">
+                <p>欢迎来到Kimi发现页面！这里是我探索AI应用、游戏开发和创意项目的实验场。</p>
+                <p>Kimi不仅是一个AI助手，更是激发创意的伙伴。在这里，我将分享基于Kimi API开发的各种有趣应用、小游戏和工具。</p>
+                <p>无论你是AI爱好者、游戏开发者，还是只是想找点乐子，希望这里能有让你眼前一亮的东西！</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- 游戏区域 -->
+    <section class="section games-section">
+        <div class="container">
+            <h2 class="section-title">游戏与应用</h2>
+            <p class="section-subtitle">点击卡片体验各种基于AI的小游戏和应用</p>
+            
+            <div class="games-grid">
+                <!-- 游戏卡片1 -->
+                <div class="game-card">
+                    <div class="game-icon">
+                        <i class="fas fa-robot"></i>
+                    </div>
+                    <h3>AI对话游戏</h3>
+                    <p>与AI角色进行有趣的对话，体验智能聊天的乐趣。</p>
+                    <div class="game-tags">
+                        <span class="game-tag">AI对话</span>
+                        <span class="game-tag">聊天</span>
+                    </div>
+                    <div class="game-status">开发中</div>
+                </div>
+                
+                <!-- 游戏卡片2 -->
+                <div class="game-card">
+                    <div class="game-icon">
+                        <i class="fas fa-brain"></i>
+                    </div>
+                    <h3>智能谜题</h3>
+                    <p>挑战AI生成的谜题，测试你的逻辑思维能力。</p>
+                    <div class="game-tags">
+                        <span class="game-tag">解谜</span>
+                        <span class="game-tag">逻辑</span>
+                    </div>
+                    <div class="game-status">即将推出</div>
+                </div>
+                
+                <!-- 游戏卡片3 -->
+                <div class="game-card">
+                    <div class="game-icon">
+                        <i class="fas fa-code"></i>
+                    </div>
+                    <h3>代码挑战</h3>
+                    <p>与AI进行编程对决，看谁能写出更好的代码。</p>
+                    <div class="game-tags">
+                        <span class="game-tag">编程</span>
+                        <span class="game-tag">挑战</span>
+                    </div>
+                    <div class="game-status">规划中</div>
+                </div>
+                
+                <!-- 游戏卡片4 -->
+                <div class="game-card">
+                    <div class="game-icon">
+                        <i class="fas fa-gamepad"></i>
+                    </div>
+                    <h3>文字冒险</h3>
+                    <p>在AI生成的故事中冒险，你的选择决定故事走向。</p>
+                    <div class="game-tags">
+                        <span class="game-tag">文字冒险</span>
+                        <span class="game-tag">故事</span>
+                    </div>
+                    <div class="game-status">构思中</div>
+                </div>
+                
+                <!-- 游戏卡片5 -->
+                <div class="game-card">
+                    <div class="game-icon">
+                        <i class="fas fa-palette"></i>
+                    </div>
+                    <h3>AI艺术生成</h3>
+                    <p>使用AI生成独特艺术品，探索创意无限可能。</p>
+                    <div class="game-tags">
+                        <span class="game-tag">艺术</span>
+                        <span class="game-tag">生成</span>
+                    </div>
+                    <div class="game-status">计划中</div>
+                </div>
+                
+                <!-- 游戏卡片6 -->
+                <div class="game-card">
+                    <div class="game-icon">
+                        <i class="fas fa-music"></i>
+                    </div>
+                    <h3>AI音乐创作</h3>
+                    <p>与AI合作创作独特旋律，体验音乐创作的乐趣。</p>
+                    <div class="game-tags">
+                        <span class="game-tag">音乐</span>
+                        <span class="game-tag">创作</span>
+                    </div>
+                    <div class="game-status">构思中</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 开发计划 -->
+    <section class="section roadmap-section">
+        <div class="container">
+            <h2 class="section-title">开发路线图</h2>
+            <div class="roadmap">
+                <div class="roadmap-item">
+                    <div class="roadmap-date">2024 Q1</div>
+                    <div class="roadmap-content">
+                        <h3>页面设计与基础框架</h3>
+                        <p>完成Kimi发现页面的设计与开发，建立基础架构。</p>
+                    </div>
+                </div>
+                <div class="roadmap-item">
+                    <div class="roadmap-date">2024 Q2</div>
+                    <div class="roadmap-content">
+                        <h3>首个游戏上线</h3>
+                        <p>发布第一个基于Kimi的AI对话游戏。</p>
+                    </div>
+                </div>
+                <div class="roadmap-item">
+                    <div class="roadmap-date">2024 Q3</div>
+                    <div class="roadmap-content">
+                        <h3>扩展游戏类型</h3>
+                        <p>新增解谜类和创意类游戏，丰富页面内容。</p>
+                    </div>
+                </div>
+                <div class="roadmap-item">
+                    <div class="roadmap-date">2024 Q4</div>
+                    <div class="roadmap-content">
+                        <h3>用户交互功能</h3>
+                        <p>添加用户反馈、评分和社区功能。</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 页脚 -->
+    <footer>
+        <div class="container">
+            <p>© <span id="currentYear"></span> 星天(xtt). Kimi发现页面 · 本页面通过 GitHub Pages 托管。</p>
+            <p style="margin-top: 10px; font-size: 0.9em;">
+                最后更新: <span id="lastUpdate"></span> | 
+                <a href="https://github.com/xtt-xt/xtt-xt.github.io" style="color: var(--text-secondary); text-decoration: underline;" tabindex="0">查看本网站源码</a> |
+                <a href="index.html" style="color: var(--text-secondary); text-decoration: underline;" tabindex="0">返回主站</a>
+            </p>
+        </div>
+    </footer>
+
+    <!-- 引入主脚本 -->
+    <script src="script.js"></script>
+    <!-- 引入Kimi页面专用脚本 -->
+    <script src="kimi-script.js"></script>
+</body>
+</html>
