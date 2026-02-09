@@ -83,6 +83,7 @@
     display: flex;
     flex-direction: column;
     height: 100%;
+    cursor: pointer;
 }
 
 .game-card:hover {
@@ -104,11 +105,27 @@
     color: var(--text-primary);
 }
 
-.game-card p {
+.game-preview {
     color: var(--text-secondary);
     flex-grow: 1;
     margin-bottom: 15px;
     line-height: 1.6;
+}
+
+/* 游戏元数据 */
+.game-meta {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 10px;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+.update-date {
+    font-size: 0.85rem;
+    color: var(--text-secondary);
+    opacity: 0.8;
 }
 
 /* 游戏标签 */
@@ -116,7 +133,6 @@
     display: flex;
     flex-wrap: wrap;
     gap: 8px;
-    margin-bottom: 15px;
 }
 
 .game-tag {
@@ -135,96 +151,29 @@
     border-radius: 20px;
     font-size: 0.8rem;
     font-weight: bold;
-    margin-top: auto;
+    margin-top: 15px;
     align-self: flex-start;
 }
 
-.game-status {
-    background: rgba(231, 76, 60, 0.1);
-    color: #e74c3c;
-    border: 1px solid rgba(231, 76, 60, 0.3);
-}
-
-.game-card:nth-child(1) .game-status {
+.game-card[data-game-id="ai-chat"] .game-status {
     background: rgba(52, 152, 219, 0.1);
     color: var(--primary);
     border: 1px solid rgba(52, 152, 219, 0.3);
 }
 
-.game-card:nth-child(2) .game-status {
+.game-card[data-game-id="puzzle"] .game-status {
     background: rgba(46, 204, 113, 0.1);
     color: var(--secondary);
     border: 1px solid rgba(46, 204, 113, 0.3);
 }
 
-/* 路线图区域 */
-.roadmap-section {
-    background: linear-gradient(180deg, rgba(46, 204, 113, 0.05) 0%, transparent 100%);
-}
-
-.roadmap {
-    max-width: 800px;
-    margin: 0 auto;
-    position: relative;
-}
-
-.roadmap::before {
-    content: '';
-    position: absolute;
-    left: 30px;
-    top: 0;
-    bottom: 0;
-    width: 2px;
-    background: var(--primary);
-    opacity: 0.3;
-}
-
-.roadmap-item {
-    display: flex;
-    margin-bottom: 40px;
-    position: relative;
-}
-
-.roadmap-date {
-    width: 60px;
-    font-weight: bold;
-    color: var(--primary);
-    font-size: 0.9rem;
-    margin-right: 20px;
-    text-align: right;
-    flex-shrink: 0;
-}
-
-.roadmap-content {
-    background: var(--card-bg);
-    border: 1px solid var(--border-color);
-    border-radius: 10px;
-    padding: 20px;
-    flex-grow: 1;
-    position: relative;
-}
-
-.roadmap-content::before {
-    content: '';
-    position: absolute;
-    left: -11px;
-    top: 25px;
-    width: 10px;
-    height: 10px;
-    background: var(--primary);
-    border-radius: 50%;
-    border: 3px solid var(--bg-primary);
-}
-
-.roadmap-content h3 {
-    color: var(--text-primary);
-    margin-bottom: 10px;
-    font-size: 1.2rem;
-}
-
-.roadmap-content p {
-    color: var(--text-secondary);
-    line-height: 1.6;
+.game-card[data-game-id="code"] .game-status,
+.game-card[data-game-id="adventure"] .game-status,
+.game-card[data-game-id="art"] .game-status,
+.game-card[data-game-id="music"] .game-status {
+    background: rgba(231, 76, 60, 0.1);
+    color: #e74c3c;
+    border: 1px solid rgba(231, 76, 60, 0.3);
 }
 
 /* 响应式设计 */
@@ -260,20 +209,6 @@
         grid-template-columns: 1fr;
         gap: 20px;
     }
-    
-    .roadmap::before {
-        left: 20px;
-    }
-    
-    .roadmap-date {
-        width: 50px;
-        font-size: 0.8rem;
-        margin-right: 15px;
-    }
-    
-    .roadmap-content::before {
-        left: -6px;
-    }
 }
 
 @media (max-width: 480px) {
@@ -283,5 +218,11 @@
     
     .game-card {
         padding: 20px;
+    }
+    
+    .game-meta {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 8px;
     }
 }
