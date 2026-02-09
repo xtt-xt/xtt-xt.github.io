@@ -5,6 +5,9 @@ document.addEventListener('DOMContentLoaded', function() {
     console.log('%c🎮 欢迎来到Kimi发现页面！', 'color: #9b59b6; font-size: 18px; font-weight: bold;');
     console.log('%c💡 点击游戏卡片查看详情和更新日志。', 'color: #3498db;');
     
+    // 确保主题同步
+    ensureThemeSync();
+    
     // 为游戏卡片添加点击效果
     initGameCards();
     
@@ -14,6 +17,39 @@ document.addEventListener('DOMContentLoaded', function() {
     // 设置当前年份和最后更新日期
     setPageInfo();
 });
+
+// 确保主题同步
+function ensureThemeSync() {
+    console.log('Kimi页面: 确保主题同步');
+    
+    // 检查本地存储中是否有主题设置
+    let savedTheme = localStorage.getItem('theme');
+    
+    if (!savedTheme) {
+        // 如果没有保存的主题，使用系统偏好并保存
+        const systemPrefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+        savedTheme = systemPrefersDark ? 'dark' : 'light';
+        localStorage.setItem('theme', savedTheme);
+        console.log('Kimi页面: 初始保存主题为', savedTheme);
+    }
+    
+    // 应用主题
+    if (savedTheme === 'light') {
+        document.body.classList.add('light-mode');
+        const themeIcon = document.querySelector('#themeToggle i');
+        if (themeIcon) {
+            themeIcon.className = 'fas fa-sun';
+        }
+    } else {
+        document.body.classList.remove('light-mode');
+        const themeIcon = document.querySelector('#themeToggle i');
+        if (themeIcon) {
+            themeIcon.className = 'fas fa-moon';
+        }
+    }
+    
+    console.log('Kimi页面: 主题已同步为', savedTheme);
+}
 
 // 设置页面信息
 function setPageInfo() {
@@ -34,6 +70,7 @@ function initGameCards() {
         // 添加点击事件 - 跳转到游戏详情页
         card.addEventListener('click', function() {
             const gameId = this.getAttribute('data-game-id');
+            console.log('点击游戏卡片:', gameId);
             window.location.href = `game-detail.html?game=${gameId}`;
         });
         
@@ -70,29 +107,10 @@ function addPageEffects() {
     });
 }
 
-// 主题同步检查
-function checkThemeSync() {
-    const currentTheme = localStorage.getItem('theme') || 
-                        (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
-    
-    console.log(`当前主题: ${currentTheme}`);
-    
-    // 确保与主站主题同步
-    if (currentTheme === 'light' && !document.body.classList.contains('light-mode')) {
-        document.body.classList.add('light-mode');
-        const themeIcon = document.querySelector('#themeToggle i');
-        if (themeIcon) {
-            themeIcon.className = 'fas fa-sun';
-        }
+// 监听storage事件，确保主题变化时同步
+window.addEventListener('storage', function(e) {
+    if (e.key === 'theme') {
+        console.log('Kimi页面: 检测到主题变化，重新同步');
+        ensureThemeSync();
     }
-}
-
-// 页面卸载前保存主题状态
-window.addEventListener('beforeunload', function() {
-    // 确保主题状态保存
-    const theme = document.body.classList.contains('light-mode') ? 'light' : 'dark';
-    localStorage.setItem('theme', theme);
 });
-
-// 初始化主题同步
-checkThemeSync();
