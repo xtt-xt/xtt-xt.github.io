@@ -8,7 +8,7 @@
     --text-primary: #f1f5f9;
     --text-secondary: #94a3b8;
     --border-color: #334155;
-    --transition: all 0.3s ease;
+    --transition: all 0.3 ease;
 }
 
 /* 浅色模式变量 */
@@ -47,7 +47,7 @@ body {
     color: var(--text-primary);
     line-height: 1.7;
     overflow-x: hidden;
-    transition: background-color 0.5s ease, color 0.5s ease;
+    transition: background-color 0.5 ease, color 0.5 ease;
     background-image: 
         radial-gradient(circle at 10% 20%, rgba(41, 128, 185, 0.1) 0%, transparent 20%),
         radial-gradient(circle at 90% 80%, rgba(46, 204, 113, 0.1) 0%, transparent 20%);
@@ -229,4 +229,49 @@ footer {
 
 @media (min-width: 1600px) {
     .container { max-width: 1400px; }
+}
+
+/* ===== 访客统计样式 ===== */
+.visit-counter {
+    opacity: 0.8;
+    transition: opacity 0.3 ease;
+}
+
+.visit-counter:hover {
+    opacity: 1;
+}
+
+#busuanzi_value_site_pv,
+#busuanzi_value_site_uv {
+    font-weight: bold;
+    color: var(--primary);
+    margin: 0 2px;
+}
+
+/* 深色模式下调整访客统计颜色 */
+body:not(.light-mode) .visit-counter {
+    color: #94a3b8;
+}
+
+body:not(.light-mode) #busuanzi_value_site_pv,
+body:not(.light-mode) #busuanzi_value_site_uv {
+    color: #60a5fa; /* 亮蓝色，在深色背景中更明显 */
+}
+
+/* 浅色模式下调整访客统计颜色 */
+body.light-mode .visit-counter {
+    color: #64748b;
+}
+
+body.light-mode #busuanzi_value_site_pv,
+body.light-mode #busuanzi_value_site_uv {
+    color: #2563eb; /* 深蓝色，在浅色背景中更清晰 */
+}
+
+/* 响应式调整 */
+@media (max-width: 768px) {
+    .visit-counter {
+        font-size: 0.8em;
+        margin-top: 10px;
+    }
 }
