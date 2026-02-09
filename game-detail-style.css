@@ -31,7 +31,16 @@
 .game-detail-header {
     padding-top: 100px;
     padding-bottom: 40px;
-    background: linear-gradient(180deg, var(--bg-secondary) 0%, transparent 100%);
+}
+
+/* 深色模式头部背景 */
+body:not(.light-mode) .game-detail-header {
+    background: linear-gradient(180deg, #0a1123 0%, transparent 100%);
+}
+
+/* 浅色模式头部背景 */
+body.light-mode .game-detail-header {
+    background: linear-gradient(180deg, #e2e8f0 0%, transparent 100%);
 }
 
 .game-header-content {
@@ -74,9 +83,6 @@
     border-radius: 20px;
     font-size: 0.85rem;
     font-weight: bold;
-}
-
-.game-status-badge {
     background: rgba(52, 152, 219, 0.1);
     color: var(--primary);
     border: 1px solid rgba(52, 152, 219, 0.3);
@@ -237,7 +243,16 @@
 /* 游戏更新日志 */
 .game-changelog-section {
     margin-top: 40px;
+}
+
+/* 深色模式更新日志背景 */
+body:not(.light-mode) .game-changelog-section {
     background: linear-gradient(180deg, transparent 0%, rgba(52, 152, 219, 0.05) 100%);
+}
+
+/* 浅色模式更新日志背景 */
+body.light-mode .game-changelog-section {
+    background: linear-gradient(180deg, transparent 0%, rgba(52, 152, 219, 0.1) 100%);
 }
 
 .game-changelog {
