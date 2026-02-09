@@ -69,12 +69,18 @@ function initGameCards() {
     gameCards.forEach(card => {
         // 添加点击事件 - 跳转到游戏详情页
         card.addEventListener('click', function(e) {
+            // 阻止事件冒泡
+            e.stopPropagation();
+            
+            // 获取游戏ID
             const gameId = this.getAttribute('data-game-id');
-            if (gameId) {
-                console.log('点击游戏卡片，跳转到:', gameId);
-                window.location.href = `game-detail.html?game=${gameId}`;
+            console.log('点击的游戏卡片ID:', gameId);
+            
+            if (gameId && gameId.trim() !== '') {
+                console.log('跳转到游戏详情页:', gameId);
+                window.location.href = `game-detail.html?game=${encodeURIComponent(gameId)}`;
             } else {
-                console.error('游戏卡片缺少data-game-id属性');
+                console.error('游戏卡片缺少有效的data-game-id属性');
                 alert('游戏链接配置错误，请稍后再试');
             }
         });
@@ -83,8 +89,8 @@ function initGameCards() {
         card.setAttribute('tabindex', '0');
         card.addEventListener('keydown', function(e) {
             if (e.key === 'Enter' || e.key === ' ') {
-                this.click();
                 e.preventDefault();
+                this.click();
             }
         });
         
@@ -93,6 +99,8 @@ function initGameCards() {
             this.style.cursor = 'pointer';
         });
     });
+    
+    console.log('初始化了', gameCards.length, '个游戏卡片');
 }
 
 // 添加页面特效
