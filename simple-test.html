@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>简单测试</title>
+</head>
+<body>
+    <h1 id="game-title">等待更新...</h1>
+    <p id="game-subtitle">...</p>
+    
+    <script>
+        const urlParams = new URLSearchParams(window.location.search);
+        const gameId = urlParams.get('game');
+        
+        alert('游戏ID: ' + gameId);
+        
+        if (gameId === 'adventure') {
+            document.getElementById('game-title').textContent = '文字冒险';
+            document.getElementById('game-subtitle').textContent = '在AI生成的故事中冒险';
+            alert('✅ 显示文字冒险');
+        } else if (gameId === 'puzzle') {
+            document.getElementById('game-title').textContent = '智能谜题';
+            document.getElementById('game-subtitle').textContent = '挑战AI生成的逻辑谜题';
+            alert('✅ 显示智能谜题');
+        } else {
+            document.getElementById('game-title').textContent = '默认游戏';
+            document.getElementById('game-subtitle').textContent = '没有指定游戏';
+        }
+    </script>
+</body>
+</html>
