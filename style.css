@@ -230,3 +230,15 @@ footer {
 @media (min-width: 1600px) {
     .container { max-width: 1400px; }
 }
+
+/* 页脚链接样式 */
+footer a {
+    color: var(--text-secondary);
+    text-decoration: none;
+    transition: color 0.3 ease;
+}
+
+footer a:hover {
+    color: var(--primary);
+    text-decoration: underline;
+}
