@@ -68,10 +68,15 @@ function initGameCards() {
     
     gameCards.forEach(card => {
         // 添加点击事件 - 跳转到游戏详情页
-        card.addEventListener('click', function() {
+        card.addEventListener('click', function(e) {
             const gameId = this.getAttribute('data-game-id');
-            console.log('点击游戏卡片:', gameId);
-            window.location.href = `game-detail.html?game=${gameId}`;
+            if (gameId) {
+                console.log('点击游戏卡片，跳转到:', gameId);
+                window.location.href = `game-detail.html?game=${gameId}`;
+            } else {
+                console.error('游戏卡片缺少data-game-id属性');
+                alert('游戏链接配置错误，请稍后再试');
+            }
         });
         
         // 添加键盘支持
