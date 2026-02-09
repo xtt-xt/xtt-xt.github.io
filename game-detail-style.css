@@ -1,0 +1,367 @@
+/* ===== 游戏详情页专用样式 ===== */
+
+/* 返回按钮导航 */
+.game-detail-nav {
+    position: fixed;
+    top: 25px;
+    left: 25px;
+    z-index: 100;
+}
+
+.back-button {
+    background: var(--card-bg);
+    border: 1px solid var(--border-color);
+    border-radius: 50px;
+    padding: 10px 20px;
+    color: var(--text-primary);
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    transition: var(--transition);
+    font-size: 0.9rem;
+}
+
+.back-button:hover {
+    border-color: var(--primary);
+    background: rgba(52, 152, 219, 0.1);
+}
+
+/* 游戏详情头部 */
+.game-detail-header {
+    padding-top: 100px;
+    padding-bottom: 40px;
+    background: linear-gradient(180deg, var(--bg-secondary) 0%, transparent 100%);
+}
+
+.game-header-content {
+    display: flex;
+    align-items: center;
+    gap: 30px;
+    flex-wrap: wrap;
+}
+
+.game-main-icon {
+    color: var(--primary);
+}
+
+.game-header-info {
+    flex: 1;
+}
+
+.game-header-info h1 {
+    font-size: 2.5rem;
+    margin-bottom: 10px;
+    color: var(--text-primary);
+}
+
+.game-subtitle {
+    font-size: 1.2rem;
+    color: var(--text-secondary);
+    margin-bottom: 15px;
+}
+
+.game-header-meta {
+    display: flex;
+    gap: 15px;
+    align-items: center;
+    margin-bottom: 15px;
+    flex-wrap: wrap;
+}
+
+.game-status-badge {
+    padding: 4px 12px;
+    border-radius: 20px;
+    font-size: 0.85rem;
+    font-weight: bold;
+}
+
+.game-status-badge {
+    background: rgba(52, 152, 219, 0.1);
+    color: var(--primary);
+    border: 1px solid rgba(52, 152, 219, 0.3);
+}
+
+.game-version {
+    background: rgba(155, 89, 182, 0.1);
+    color: #9b59b6;
+    padding: 4px 12px;
+    border-radius: 20px;
+    font-size: 0.85rem;
+    border: 1px solid rgba(155, 89, 182, 0.3);
+}
+
+.game-update-date {
+    font-size: 0.9rem;
+    color: var(--text-secondary);
+}
+
+/* 游戏详情网格布局 */
+.game-detail-grid {
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    gap: 40px;
+}
+
+/* 游戏介绍部分 */
+.game-info-section h2 {
+    color: var(--text-primary);
+    margin-bottom: 20px;
+    font-size: 1.8rem;
+}
+
+.game-info-section h3 {
+    color: var(--text-primary);
+    margin: 20px 0 10px;
+    font-size: 1.2rem;
+}
+
+.game-description {
+    color: var(--text-secondary);
+    line-height: 1.7;
+}
+
+.game-description ul {
+    padding-left: 20px;
+    margin: 15px 0;
+}
+
+.game-description li {
+    margin-bottom: 8px;
+}
+
+/* 侧边栏 */
+.game-sidebar {
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+}
+
+/* 游戏预览 */
+.game-preview-box {
+    background: var(--card-bg);
+    border: 1px solid var(--border-color);
+    border-radius: 10px;
+    padding: 20px;
+}
+
+.game-preview-image {
+    width: 100%;
+    height: 200px;
+    background: rgba(0, 0, 0, 0.05);
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 15px;
+}
+
+.preview-placeholder {
+    text-align: center;
+    color: var(--text-secondary);
+}
+
+.preview-placeholder i {
+    margin-bottom: 10px;
+}
+
+/* 技术信息 */
+.game-tech-info {
+    background: var(--card-bg);
+    border: 1px solid var(--border-color);
+    border-radius: 10px;
+    padding: 20px;
+}
+
+.tech-info-list {
+    margin-top: 15px;
+}
+
+.tech-item {
+    display: flex;
+    justify-content: space-between;
+    padding: 8px 0;
+    border-bottom: 1px solid var(--border-color);
+}
+
+.tech-item:last-child {
+    border-bottom: none;
+}
+
+.tech-label {
+    color: var(--text-secondary);
+}
+
+.tech-value {
+    color: var(--text-primary);
+    font-weight: 500;
+}
+
+/* 游戏链接 */
+.game-links {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.game-link-button {
+    background: var(--primary);
+    color: white;
+    text-decoration: none;
+    padding: 12px 20px;
+    border-radius: 8px;
+    text-align: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    transition: var(--transition);
+}
+
+.game-link-button:hover {
+    background: #2980b9;
+    transform: translateY(-2px);
+}
+
+.game-link-button.secondary {
+    background: transparent;
+    border: 1px solid var(--border-color);
+    color: var(--text-primary);
+}
+
+.game-link-button.secondary:hover {
+    border-color: var(--primary);
+    background: rgba(52, 152, 219, 0.1);
+}
+
+/* 游戏更新日志 */
+.game-changelog-section {
+    margin-top: 40px;
+    background: linear-gradient(180deg, transparent 0%, rgba(52, 152, 219, 0.05) 100%);
+}
+
+.game-changelog {
+    max-width: 800px;
+    margin: 0 auto;
+    position: relative;
+}
+
+.game-changelog::before {
+    content: '';
+    position: absolute;
+    left: 30px;
+    top: 0;
+    bottom: 0;
+    width: 2px;
+    background: var(--primary);
+    opacity: 0.3;
+}
+
+.changelog-item {
+    display: flex;
+    margin-bottom: 30px;
+    position: relative;
+}
+
+.changelog-date {
+    width: 100px;
+    font-weight: bold;
+    color: var(--primary);
+    font-size: 0.9rem;
+    margin-right: 20px;
+    text-align: right;
+    flex-shrink: 0;
+}
+
+.changelog-content {
+    background: var(--card-bg);
+    border: 1px solid var(--border-color);
+    border-radius: 10px;
+    padding: 20px;
+    flex-grow: 1;
+    position: relative;
+}
+
+.changelog-content::before {
+    content: '';
+    position: absolute;
+    left: -11px;
+    top: 25px;
+    width: 10px;
+    height: 10px;
+    background: var(--primary);
+    border-radius: 50%;
+    border: 3px solid var(--bg-primary);
+}
+
+.changelog-content h3 {
+    color: var(--text-primary);
+    margin-bottom: 10px;
+    font-size: 1.1rem;
+}
+
+.changelog-content p {
+    color: var(--text-secondary);
+    line-height: 1.6;
+    margin: 5px 0;
+}
+
+/* 响应式设计 */
+@media (max-width: 992px) {
+    .game-detail-grid {
+        grid-template-columns: 1fr;
+        gap: 30px;
+    }
+    
+    .game-header-content {
+        text-align: center;
+        justify-content: center;
+    }
+    
+    .changelog-date {
+        width: 80px;
+    }
+}
+
+@media (max-width: 768px) {
+    .game-detail-nav {
+        top: 15px;
+        left: 15px;
+    }
+    
+    .game-header-info h1 {
+        font-size: 2rem;
+    }
+    
+    .game-header-meta {
+        justify-content: center;
+    }
+    
+    .game-changelog::before {
+        left: 20px;
+    }
+    
+    .changelog-date {
+        width: 70px;
+        margin-right: 15px;
+    }
+    
+    .changelog-content::before {
+        left: -6px;
+    }
+}
+
+@media (max-width: 480px) {
+    .game-header-info h1 {
+        font-size: 1.8rem;
+    }
+    
+    .changelog-date {
+        width: 60px;
+        font-size: 0.8rem;
+    }
+    
+    .changelog-content {
+        padding: 15px;
+    }
+}
