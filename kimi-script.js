@@ -3,32 +3,38 @@
 // 页面加载后执行
 document.addEventListener('DOMContentLoaded', function() {
     console.log('%c🎮 欢迎来到Kimi发现页面！', 'color: #9b59b6; font-size: 18px; font-weight: bold;');
-    console.log('%c💡 这里将展示各种基于AI的创意游戏和应用。', 'color: #3498db;');
+    console.log('%c💡 点击游戏卡片查看详情和更新日志。', 'color: #3498db;');
     
     // 为游戏卡片添加点击效果
     initGameCards();
     
     // 为页面添加特殊效果
     addPageEffects();
+    
+    // 设置当前年份和最后更新日期
+    setPageInfo();
 });
+
+// 设置页面信息
+function setPageInfo() {
+    // 设置当前年份
+    document.getElementById('currentYear').textContent = new Date().getFullYear();
+    
+    // 设置最后更新日期
+    const lastUpdate = new Date();
+    document.getElementById('lastUpdate').textContent = 
+        `${lastUpdate.getFullYear()}-${(lastUpdate.getMonth()+1).toString().padStart(2, '0')}-${lastUpdate.getDate().toString().padStart(2, '0')}`;
+}
 
 // 初始化游戏卡片交互
 function initGameCards() {
     const gameCards = document.querySelectorAll('.game-card');
     
     gameCards.forEach(card => {
-        // 添加点击效果
+        // 添加点击事件 - 跳转到游戏详情页
         card.addEventListener('click', function() {
-            const gameTitle = this.querySelector('h3').textContent;
-            const gameStatus = this.querySelector('.game-status').textContent;
-            
-            if (gameStatus === '开发中') {
-                alert(`"${gameTitle}" 正在开发中，敬请期待！`);
-            } else if (gameStatus === '即将推出') {
-                alert(`"${gameTitle}" 即将推出，很快就会上线！`);
-            } else {
-                alert(`"${gameTitle}" 正在规划中，未来会与大家见面！`);
-            }
+            const gameId = this.getAttribute('data-game-id');
+            window.location.href = `game-detail.html?game=${gameId}`;
         });
         
         // 添加键盘支持
@@ -40,9 +46,8 @@ function initGameCards() {
             }
         });
         
-        // 添加悬停声音效果（可选）
+        // 添加悬停效果
         card.addEventListener('mouseenter', function() {
-            // 可以在这里添加音效或动画
             this.style.cursor = 'pointer';
         });
     });
@@ -50,31 +55,6 @@ function initGameCards() {
 
 // 添加页面特效
 function addPageEffects() {
-    // 为路线图项目添加滚动动画
-    const roadmapItems = document.querySelectorAll('.roadmap-item');
-    
-    const observerOptions = {
-        threshold: 0.2,
-        rootMargin: '0px 0px -50px 0px'
-    };
-    
-    const observer = new IntersectionObserver(function(entries) {
-        entries.forEach(entry => {
-            if (entry.isIntersecting) {
-                entry.target.style.opacity = '1';
-                entry.target.style.transform = 'translateX(0)';
-            }
-        });
-    }, observerOptions);
-    
-    roadmapItems.forEach((item, index) => {
-        item.style.opacity = '0';
-        item.style.transform = 'translateX(-20px)';
-        item.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
-        item.style.transitionDelay = `${index * 0.1}s`;
-        observer.observe(item);
-    });
-    
     // 为游戏卡片添加延迟显示动画
     const gameCards = document.querySelectorAll('.game-card');
     
