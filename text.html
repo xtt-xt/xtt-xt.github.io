@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>JavaScript测试</title>
+</head>
+<body>
+    <h1>JavaScript测试页面</h1>
+    
+    <div>
+        <button onclick="testAlert()">测试Alert</button>
+        <button onclick="testURL()">测试URL参数</button>
+    </div>
+    
+    <div id="output" style="margin-top: 20px; padding: 10px; background: #eee;"></div>
+    
+    <script>
+        function testAlert() {
+            alert('✅ Alert弹窗正常！');
+            document.getElementById('output').innerHTML += '<p>Alert测试完成</p>';
+        }
+        
+        function testURL() {
+            const urlParams = new URLSearchParams(window.location.search);
+            const gameId = urlParams.get('game');
+            const result = gameId ? '✅ 获取到game参数: ' + gameId : '❌ 没有game参数';
+            
+            alert(result);
+            document.getElementById('output').innerHTML += '<p>' + result + '</p>';
+        }
+        
+        // 页面加载时自动测试
+        window.onload = function() {
+            alert('页面加载完成测试');
+            testURL();
+        };
+    </script>
+</body>
+</html>
