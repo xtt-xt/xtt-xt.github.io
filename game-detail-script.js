@@ -10,7 +10,7 @@ const gameData = {
         version: 'v0.1.0',
         updateDate: '2024-03-15',
         icon: 'fas fa-robot',
-        标签: ['AI对话', '聊天', '互动'],
+        tags: ['AI对话', '聊天', '互动'],
         description: `
             <p>这是一个基于Kimi AI的对话游戏，你可以与不同个性的AI角色进行有趣的对话。每个角色都有独特的背景故事和对话风格，让聊天变得更加生动有趣。</p>
             
@@ -72,7 +72,7 @@ const gameData = {
         version: 'v0.0.5',
         updateDate: '2024-03-10',
         icon: 'fas fa-brain',
-        标签: ['解谜', '逻辑', 'AI生成'],
+        tags: ['解谜', '逻辑', 'AI生成'],
         description: `
             <p>这是一个基于AI生成的逻辑谜题游戏，每个谜题都由AI动态生成，确保每次游戏都有新体验。挑战你的逻辑思维能力，看看你能解决多少难题！</p>
             
@@ -134,7 +134,7 @@ const gameData = {
         version: 'v0.0.3',
         updateDate: '2024-03-05',
         icon: 'fas fa-code',
-        标签: ['编程', '挑战', '学习'],
+        tags: ['编程', '挑战', '学习'],
         description: `
             <p>这是一个编程挑战游戏，你可以与AI进行编程对决，看谁能写出更好的代码。游戏包含多种编程语言和算法挑战，适合编程爱好者提升技能。</p>
             
@@ -187,7 +187,7 @@ const gameData = {
         version: 'v0.0.2',
         updateDate: '2024-02-28',
         icon: 'fas fa-gamepad',
-        标签: ['文字冒险', '故事', '选择'],
+        tags: ['文字冒险', '故事', '选择'],
         description: `
             <p>这是一个AI驱动的文字冒险游戏，每个故事都由AI动态生成，你的选择决定故事走向。体验无限可能的冒险旅程！</p>
             
@@ -240,7 +240,7 @@ const gameData = {
         version: 'v0.0.1',
         updateDate: '2024-02-20',
         icon: 'fas fa-palette',
-        标签: ['艺术', '生成', '创意'],
+        tags: ['艺术', '生成', '创意'],
         description: `
             <p>这是一个AI艺术生成工具，你可以通过简单的描述生成独特的数字艺术品。探索AI在艺术创作中的无限可能！</p>
             
@@ -284,7 +284,7 @@ const gameData = {
         version: 'v0.0.1',
         updateDate: '2024-02-15',
         icon: 'fas fa-music',
-        标签: ['音乐', '创作', 'AI作曲'],
+        tags: ['音乐', '创作', 'AI作曲'],
         description: `
             <p>这是一个AI音乐创作工具，你可以与AI合作创作独特的音乐作品。无论你是音乐新手还是专业人士，都能在这里找到创作灵感！</p>
             
@@ -325,7 +325,152 @@ const gameData = {
 // 获取URL中的游戏ID
 function getGameIdFromUrl() {
     const urlParams = new URLSearchParams(window.location.search);
-    return urlParams.get('game') || 'ai-chat'; // 默认显示第一个游戏
+    const gameId = urlParams.get('game');
+    console.log('从URL获取的游戏ID:', gameId);
+    
+    // 如果URL中没有game参数，或者gameId不在gameData中，则重定向到Kimi页面
+    if (!gameId || !gameData[gameId]) {
+        console.error('无效的游戏ID:', gameId, '，重定向到Kimi页面');
+        alert('游戏不存在，正在返回游戏列表...');
+        setTimeout(() => {
+            window.location.href = 'kimi.html';
+        }, 1500);
+        return null;
+    }
+    
+    return gameId;
+}
+
+// 更新页面内容
+function updatePageContent(gameId) {
+    if (!gameId) return;
+    
+    const game = gameData[gameId];
+    if (!game) {
+        console.error('游戏数据不存在:', gameId);
+        window.location.href = 'kimi.html';
+        return;
+    }
+    
+    console.log('加载游戏数据:', game.title);
+    
+    // 更新页面标题
+    document.title = `${game.title} - 星天(xtt) Kimi发现页`;
+    
+    // 更新游戏标题
+    document.getElementById('game-title').textContent = game.title;
+    document.getElementById('game-subtitle').textContent = game.subtitle;
+    document.getElementById('game-status').textContent = game.status;
+    document.getElementById('game-version').textContent = game.version;
+    document.getElementById('game-update-date').textContent = `最后更新: ${game.updateDate}`;
+    
+    // 更新游戏图标
+    document.getElementById('game-icon').className = `${game.icon} fa-4x`;
+    
+    // 更新游戏标签
+    const tagsContainer = document.getElementById('game-tags');
+    tagsContainer.innerHTML = '';
+    game.tags.forEach(tag => {
+        const tagElement = document.createElement('span');
+        tagElement.className = 'game-tag';
+        tagElement.textContent = tag;
+        tagsContainer.appendChild(tagElement);
+    });
+    
+    // 更新游戏描述
+    document.getElementById('game-description').innerHTML = game.description;
+    
+    // 更新技术信息
+    updateTechInfo(game.techInfo);
+    
+    // 生成更新日志
+    generateChangelog(game.changelog, game.title);
+    
+    // 更新链接
+    updateGameLinks(game);
+    
+    // 更新页面年份
+    document.getElementById('currentYear').textContent = new Date().getFullYear();
+}
+
+// 更新技术信息
+function updateTechInfo(techInfo) {
+    const container = document.getElementById('tech-info-list');
+    if (!container) return;
+    
+    container.innerHTML = '';
+    
+    techInfo.forEach(info => {
+        const techItem = document.createElement('div');
+        techItem.className = 'tech-item';
+        techItem.innerHTML = `
+            <span class="tech-label">${info.label}：</span>
+            <span class="tech-value">${info.value}</span>
+        `;
+        container.appendChild(techItem);
+    });
+}
+
+// 生成更新日志
+function generateChangelog(changelog, gameTitle) {
+    const container = document.getElementById('game-changelog');
+    if (!container) return;
+    
+    container.innerHTML = '';
+    
+    changelog.forEach(log => {
+        const logItem = document.createElement('div');
+        logItem.className = 'changelog-item';
+        
+        logItem.innerHTML = `
+            <div class="changelog-date">${log.date}</div>
+            <div class="changelog-content">
+                <h3>${gameTitle} ${log.version}</h3>
+                ${log.content.map(item => `<p>• ${item}</p>`).join('')}
+            </div>
+        `;
+        
+        container.appendChild(logItem);
+    });
+}
+
+// 更新游戏链接
+function updateGameLinks(game) {
+    const playButton = document.getElementById('game-play-link');
+    const sourceButton = document.getElementById('game-source-link');
+    
+    if (!playButton || !sourceButton) return;
+    
+    // 根据游戏状态设置按钮
+    if (game.status === '开发中') {
+        playButton.textContent = ' 体验Demo';
+        playButton.href = '#';
+        playButton.onclick = function(e) {
+            e.preventDefault();
+            alert(`${game.title}正在开发中，即将推出Demo版本！`);
+        };
+    } else if (game.status === '即将推出') {
+        playButton.textContent = ' 即将推出';
+        playButton.href = '#';
+        playButton.onclick = function(e) {
+            e.preventDefault();
+            alert(`${game.title}即将推出，敬请期待！`);
+        };
+    } else if (game.status === '规划中' || game.status === '计划中' || game.status === '构思中') {
+        playButton.textContent = ' 尚未可用';
+        playButton.href = '#';
+        playButton.onclick = function(e) {
+            e.preventDefault();
+            alert(`${game.title}正在规划中，未来会与大家见面！`);
+        };
+    } else {
+        playButton.textContent = ' 开始游戏';
+        playButton.href = `games/${game.id}/index.html`;
+    }
+    
+    // 源码链接
+    sourceButton.href = `https://github.com/xtt-xt/kimi-games/tree/main/${game.id}`;
+    sourceButton.target = '_blank';
 }
 
 // ===== 游戏详情页主题同步 =====
@@ -339,6 +484,50 @@ function initGameDetailTheme() {
     // 如果没有保存的主题，使用系统偏好
     const currentTheme = savedTheme || (systemPrefersDark ? 'dark' : 'light');
     
+    console.log('游戏详情页主题状态:', {
+        savedTheme,
+        systemPrefersDark,
+        currentTheme
+    });
+    
+    // 应用主题
+    if (currentTheme === 'light') {
+        document.body.classList.add('light-mode');
+        const themeIcon = document.querySelector('#themeToggle i');
+        if (themeIcon) {
+            themeIcon.className = 'fas fa-sun';
+        }
+    } else {
+        document.body.classList.remove('light-mode');
+        const themeIcon = document.querySelector('#themeToggle i');
+        if (themeIcon) {
+            themeIcon.className = 'fas fa-moon';
+        }
+    }
+    
+    console.log('游戏详情页: 主题已同步为', currentTheme);
+}
+
+// 页面加载完成后执行
+document.addEventListener('DOMContentLoaded', function() {
+    console.log('%c🎮 游戏详情页已加载', 'color: #3498db; font-size: 16px; font-weight: bold;');
+    
+    // 初始化主题（优先执行）
+    initGameDetailTheme();
+    
+    const gameId = getGameIdFromUrl();
+    if (gameId) {
+        updatePageContent(gameId);
+    }
+});
+
+// 监听storage事件，确保主题变化时同步
+window.addEventListener('storage', function(e) {
+    if (e.key === 'theme') {
+        console.log('游戏详情页: 检测到主题变化，重新同步');
+        initGameDetailTheme();
+    }
+});   
     console.log('游戏详情页主题状态:', {
         savedTheme,
         systemPrefersDark,
