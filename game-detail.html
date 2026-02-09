@@ -7,8 +7,6 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <!-- 引入主样式 -->
     <link rel="stylesheet" href="style.css">
-    <!-- 引入Kimi页面专用样式 -->
-    <link rel="stylesheet" href="kimi-style.css">
     <!-- 游戏详情页专用样式 -->
     <link rel="stylesheet" href="game-detail-style.css">
     <!-- 网站图标 -->
@@ -136,25 +134,5 @@
     <script src="script.js"></script>
     <!-- 游戏详情页专用脚本 -->
     <script src="game-detail-script.js"></script>
-    <!-- 在 game-detail.html 的 </body> 前添加 -->
-<script>
-    // 直接内联测试代码
-    alert('🎯 HTML页面加载完成！');
-    
-    // 测试是否连接到外部JS文件
-    console.log('开始加载外部脚本...');
-    
-    // 手动测试URL参数
-    const urlParams = new URLSearchParams(window.location.search);
-    const gameId = urlParams.get('game');
-    
-    alert('📋 直接内联测试\n\n' +
-          'URL: ' + window.location.href + '\n' +
-          'game参数: "' + gameId + '"');
-    
-    // 检查是否有DOM元素
-    const titleElement = document.getElementById('game-title');
-    alert('找到game-title元素: ' + (titleElement ? '是' : '否'));
-</script>
 </body>
 </html>
