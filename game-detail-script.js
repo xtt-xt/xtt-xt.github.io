@@ -341,6 +341,195 @@ function getGameIdFromUrl() {
     return gameId;
 }
 
+// ===== 游戏详情页主题同步 =====
+function initGameDetailTheme() {
+    console.log('游戏详情页: 初始化主题');
+    
+    // 检查本地存储中的主题设置
+    const savedTheme = localStorage.getItem('theme');
+    const systemPrefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+    
+    // 如果没有保存的主题，使用系统偏好
+    const currentTheme = savedTheme || (systemPrefersDark ? 'dark' : 'light');
+    
+    console.log('游戏详情页主题状态:', {
+        savedTheme,
+        systemPrefersDark,
+        currentTheme
+    });
+    
+    // 应用主题
+    if (currentTheme === 'light') {
+        document.body.classList.add('light-mode');
+        const themeIcon = document.querySelector('#themeToggle i');
+        if (themeIcon) {
+            themeIcon.className = 'fas fa-sun';
+        }
+    } else {
+        document.body.classList.remove('light-mode');
+        const themeIcon = document.querySelector('#themeToggle i');
+        if (themeIcon) {
+            themeIcon.className = 'fas fa-moon';
+        }
+    }
+    
+    console.log('游戏详情页: 主题已同步为', currentTheme);
+}
+
+// 更新页面内容
+function updatePageContent(gameId) {
+    if (!gameId) return;
+    
+    const game = gameData[gameId];
+    if (!game) {
+        console.error('游戏数据不存在:', gameId);
+        window.location.href = 'kimi.html';
+        return;
+    }
+    
+    console.log('加载游戏数据:', game.title);
+    
+    // 更新页面标题
+    document.title = `${game.title} - 星天(xtt) Kimi发现页`;
+    
+    // 更新游戏标题
+    document.getElementById('game-title').textContent = game.title;
+    document.getElementById('game-subtitle').textContent = game.subtitle;
+    document.getElementById('game-status').textContent = game.status;
+    document.getElementById('game-version').textContent = game.version;
+    document.getElementById('game-update-date').textContent = `最后更新: ${game.updateDate}`;
+    
+    // 更新游戏图标
+    document.getElementById('game-icon').className = `${game.icon} fa-4x`;
+    
+    // 更新游戏标签
+    const tagsContainer = document.getElementById('game-tags');
+    tagsContainer.innerHTML = '';
+    game.标签.forEach(tag => {
+        const tagElement = document.createElement('span');
+        tagElement.className = 'game-tag';
+        tagElement.textContent = tag;
+        tagsContainer.appendChild(tagElement);
+    });
+    
+    // 更新游戏描述
+    document.getElementById('game-description').innerHTML = game.description;
+    
+    // 更新技术信息
+    updateTechInfo(game.techInfo);
+    
+    // 生成更新日志
+    generateChangelog(game.changelog, game.title);
+    
+    // 更新链接
+    updateGameLinks(game);
+    
+    // 更新页面年份
+    document.getElementById('currentYear').textContent = new Date().getFullYear();
+}
+
+// 更新技术信息
+function updateTechInfo(techInfo) {
+    const container = document.getElementById('tech-info-list');
+    if (!container) return;
+    
+    container.innerHTML = '';
+    
+    techInfo.forEach(info => {
+        const techItem = document.createElement('div');
+        techItem.className = 'tech-item';
+        techItem.innerHTML = `
+            <span class="tech-label">${info.label}：</span>
+            <span class="tech-value">${info.value}</span>
+        `;
+        container.appendChild(techItem);
+    });
+}
+
+// 生成更新日志
+function generateChangelog(changelog, gameTitle) {
+    const container = document.getElementById('game-changelog');
+    if (!container) return;
+    
+    container.innerHTML = '';
+    
+    changelog.forEach(log => {
+        const logItem = document.createElement('div');
+        logItem.className = 'changelog-item';
+        
+        logItem.innerHTML = `
+            <div class="changelog-date">${log.date}</div>
+            <div class="changelog-content">
+                <h3>${gameTitle} ${log.version}</h3>
+                ${log.content.map(item => `<p>• ${item}</p>`).join('')}
+            </div>
+        `;
+        
+        container.appendChild(logItem);
+    });
+}
+
+// 更新游戏链接
+function updateGameLinks(game) {
+    const playButton = document.getElementById('game-play-link');
+    const sourceButton = document.getElementById('game-source-link');
+    
+    if (!playButton || !sourceButton) return;
+    
+    // 根据游戏状态设置按钮
+    if (game.status === '开发中') {
+        playButton.textContent = ' 体验Demo';
+        playButton.href = '#';
+        playButton.onclick = function(e) {
+            e.preventDefault();
+            alert(`${game.title}正在开发中，即将推出Demo版本！`);
+        };
+    } else if (game.status === '即将推出') {
+        playButton.textContent = ' 即将推出';
+        playButton.href = '#';
+        playButton.onclick = function(e) {
+            e.preventDefault();
+            alert(`${game.title}即将推出，敬请期待！`);
+        };
+    } else if (game.status === '规划中' || game.status === '计划中' || game.status === '构思中') {
+        playButton.textContent = ' 尚未可用';
+        playButton.href = '#';
+        playButton.onclick = function(e) {
+            e.preventDefault();
+            alert(`${game.title}正在规划中，未来会与大家见面！`);
+        };
+    } else {
+        playButton.textContent = ' 开始游戏';
+        playButton.href = `games/${game.id}/index.html`;
+    }
+    
+    // 源码链接
+    sourceButton.href = `https://github.com/xtt-xt/kimi-games/tree/main/${game.id}`;
+    sourceButton.target = '_blank';
+}
+
+// 页面加载完成后执行
+document.addEventListener('DOMContentLoaded', function() {
+    console.log('%c🎮 游戏详情页已加载', 'color: #3498db; font-size: 16px; font-weight: bold;');
+    
+    // 初始化主题（优先执行）
+    initGameDetailTheme();
+    
+    const gameId = getGameIdFromUrl();
+    if (gameId) {
+        updatePageContent(gameId);
+    }
+});
+
+// 监听storage事件，确保主题变化时同步
+window.addEventListener('storage', function(e) {
+    if (e.key === 'theme') {
+        console.log('游戏详情页: 检测到主题变化，重新同步');
+        initGameDetailTheme();
+    }
+});
+}
+
 // 更新页面内容
 function updatePageContent(gameId) {
     if (!gameId) return;
