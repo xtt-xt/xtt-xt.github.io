@@ -1,177 +1,383 @@
 <!DOCTYPE html>
-<html lang="zh">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>星天(xtt) - 个人主页</title>
-    <style>
-      * {
-        margin: 0;
-        padding: 0;
-        box-sizing: border-box;
-      }
-      body {
-        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
-          "Helvetica Neue", Arial, sans-serif;
-        background: linear-gradient(135deg, #0d1117 0%, #161b22 100%);
-        color: #c9d1d9;
-        min-height: 100vh;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        padding: 20px;
-      }
-      .card {
-        max-width: 600px;
-        background: rgba(22, 27, 34, 0.8);
-        backdrop-filter: blur(20px);
-        border: 1px solid rgba(48, 54, 61, 0.5);
-        border-radius: 24px;
-        box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
-        padding: 3rem 2rem;
-        text-align: center;
-        transition: transform 0.3s ease;
-      }
-      .card:hover {
-        transform: translateY(-4px);
-      }
-      .avatar {
-        width: 100px;
-        height: 100px;
-        border-radius: 50%;
-        border: 3px solid #30363d;
-        margin-bottom: 1.5rem;
-        object-fit: cover;
-      }
-      h1 {
-        font-size: 2rem;
-        margin-bottom: 0.5rem;
-        color: #58a6ff;
-      }
-      .tagline {
-        color: #8b949e;
-        margin-bottom: 2rem;
-        font-size: 1.05rem;
-      }
-      .links {
-        display: flex;
-        flex-wrap: wrap;
-        justify-content: center;
-        gap: 1rem;
-        margin-bottom: 2rem;
-      }
-      .btn {
-        padding: 0.6rem 1.6rem;
-        border: 1px solid #30363d;
-        border-radius: 6px;
-        text-decoration: none;
-        color: #c9d1d9;
-        font-size: 0.9rem;
-        font-weight: 500;
-        background: #21262d;
-        transition: all 0.2s;
-      }
-      .btn:hover {
-        background: #30363d;
-        border-color: #58a6ff;
-        color: #58a6ff;
-      }
-      .btn-primary {
-        background: #238636;
-        border-color: #2ea043;
-        color: white;
-      }
-      .btn-primary:hover {
-        background: #2ea043;
-      }
-      .projects {
-        margin-top: 2rem;
-        text-align: left;
-      }
-      .projects h2 {
-        font-size: 1.2rem;
-        margin-bottom: 1rem;
-        color: #58a6ff;
-        text-align: center;
-      }
-      .project-item {
-        display: block;
-        padding: 1rem;
-        margin-bottom: 0.8rem;
-        border: 1px solid #30363d;
-        border-radius: 12px;
-        text-decoration: none;
-        color: #c9d1d9;
-        transition: all 0.2s;
-      }
-      .project-item:hover {
-        background: #161b22;
-        border-color: #58a6ff;
-      }
-      .project-item h3 {
-        font-size: 1rem;
-        margin-bottom: 0.3rem;
-      }
-      .project-item p {
-        font-size: 0.85rem;
-        color: #8b949e;
-      }
-      .status-badge {
-        display: inline-block;
-        background: #1f6feb;
-        color: white;
-        padding: 0.15rem 0.5rem;
-        border-radius: 20px;
-        font-size: 0.7rem;
-        margin-left: 0.5rem;
-      }
-      .status-badge.planning {
-        background: #30363d;
-        color: #8b949e;
-      }
-      .footer {
-        margin-top: 2rem;
-        font-size: 0.8rem;
-        color: #484f58;
-      }
-    </style>
-  </head>
-  <body>
-    <div class="card">
-      <img src="avatar.png" alt="头像" class="avatar" />
-      <h1>星天 (xtt)</h1>
-      <p class="tagline">普通的AI编程师 · 开源爱好者</p>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>XT - 个人主页</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+</head>
+<body>
+    <!-- 粒子背景容器 -->
+    <canvas id="particleCanvas"></canvas>
 
-      <div class="links">
-        <a href="https://github.com/xtt-xt" class="btn" target="_blank"
-          >GitHub</a
-        >
-        <a
-          href="https://space.bilibili.com/1207935066"
-          class="btn"
-          target="_blank"
-          >Bilibili</a
-        >
-        <a href="kimi.html" class="btn btn-primary">AI 应用集</a>
-      </div>
-
-      <div class="projects">
-        <h2>🚀 精选项目</h2>
-        <a href="game-detail.html" class="project-item">
-          <h3>AI对话游戏 <span class="status-badge">开发中</span></h3>
-          <p>与AI角色进行有趣的对话，体验智能聊天的乐趣</p>
-        </a>
-        <a href="kimi.html" class="project-item">
-          <h3>Kimi发现页 <span class="status-badge">已上线</span></h3>
-          <p>探索AI应用、游戏开发和创意项目的实验场</p>
-        </a>
-        <div class="project-item">
-          <h3>Nemo Mobile Mod Studio</h3>
-          <p>网易基岩版可视化模组制作软件</p>
+    <!-- 导航栏 -->
+    <nav class="navbar" id="navbar">
+        <div class="nav-container">
+            <a href="#hero" class="nav-logo">XT</a>
+            <ul class="nav-links">
+                <li><a href="#about" data-text="关于">关于</a></li>
+                <li><a href="#skills" data-text="技能">技能</a></li>
+                <li><a href="#projects" data-text="项目">项目</a></li>
+                <li><a href="#contact" data-text="联系">联系</a></li>
+            </ul>
+            <button class="theme-toggle" id="themeToggle" aria-label="切换主题">
+                <i class="fas fa-moon"></i>
+                <i class="fas fa-sun"></i>
+            </button>
+            <button class="mobile-menu-btn" id="mobileMenuBtn" aria-label="菜单">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
         </div>
-      </div>
+    </nav>
 
-      <div class="footer">© 2026 星天(xtt) · Powered by GitHub Pages</div>
-    </div>
-  </body>
+    <!-- 主视觉区域 -->
+    <section id="hero" class="hero-section">
+        <div class="hero-content">
+            <div class="avatar-wrapper">
+                <div class="avatar-ring"></div>
+                <div class="avatar-glow"></div>
+                <img
+                src="https://raw.githubusercontent.com/xtt-xt/xtt-xt.github.io/main/avatar.png"
+                alt="XT的头像"
+                class="avatar-img"
+                loading="eager"
+                onerror="this.onerror=null;this.src='https://github.com/xtt-xt/xtt-xt.github.io/blob/main/avatar.png';"
+                >
+            </div>
+            <div class="hero-text">
+                <div class="greeting">
+                    <span class="wave-emoji">👋</span>
+                    <span>你好，我是</span>
+                </div>
+                <h1 class="hero-name">
+                    <span class="name-gradient">XT</span>
+                </h1>
+                <div class="hero-tagline">
+                    <span class="tagline-prefix">&lt;</span>
+                    <span class="typing-text" id="typingText"></span>
+                    <span class="cursor-blink">|</span>
+                    <span class="tagline-suffix">/&gt;</span>
+                </div>
+                <p class="hero-description">
+                    热衷于构建优雅、高性能的数字体验。<br>
+                    探索技术与艺术的交汇点，用代码创造可能。
+                </p>
+                <div class="hero-actions">
+                    <a href="#projects" class="btn btn-primary">
+                        <span>查看作品</span>
+                        <i class="fas fa-arrow-right"></i>
+                    </a>
+                    <a href="#contact" class="btn btn-outline">
+                        <span>与我联系</span>
+                        <i class="fas fa-paper-plane"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+        <div class="scroll-indicator">
+            <span>向下滚动</span>
+            <div class="scroll-line">
+                <div class="scroll-dot"></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 关于我 -->
+    <section id="about" class="section about-section">
+        <div class="section-container">
+            <div class="section-header">
+                <span class="section-number">01.</span>
+                <h2 class="section-title">关于我</h2>
+                <div class="section-divider"></div>
+            </div>
+            <div class="about-content">
+                <div class="about-card glass-card">
+                    <div class="card-icon">
+                        <i class="fas fa-user-astronaut"></i>
+                    </div>
+                    <h3>我是谁</h3>
+                    <p>一名充满热情的全栈开发者，专注于创建令人愉悦的用户体验。我相信好的代码应该像诗歌一样优雅。</p>
+                </div>
+                <div class="about-card glass-card">
+                    <div class="card-icon">
+                        <i class="fas fa-map-pin"></i>
+                    </div>
+                    <h3>所在地</h3>
+                    <p>中国 · 探索数字世界的无限可能，随时随地保持连接与创造。</p>
+                </div>
+                <div class="about-card glass-card">
+                    <div class="card-icon">
+                        <i class="fas fa-heart"></i>
+                    </div>
+                    <h3>热爱</h3>
+                    <p>开源社区贡献者 · 技术写作 · UI/UX设计 · 持续学习新技术，保持好奇心与创造力。</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 技能 -->
+    <section id="skills" class="section skills-section">
+        <div class="section-container">
+            <div class="section-header">
+                <span class="section-number">02.</span>
+                <h2 class="section-title">技能</h2>
+                <div class="section-divider"></div>
+            </div>
+            <div class="skills-grid">
+                <div class="skill-category glass-card">
+                    <h3><i class="fas fa-code"></i> 前端开发</h3>
+                    <div class="skill-tags">
+                        <span class="skill-tag">HTML5</span>
+                        <span class="skill-tag">CSS3/Sass</span>
+                        <span class="skill-tag">JavaScript</span>
+                        <span class="skill-tag">TypeScript</span>
+                        <span class="skill-tag">React</span>
+                        <span class="skill-tag">Vue.js</span>
+                        <span class="skill-tag">Next.js</span>
+                        <span class="skill-tag">Tailwind CSS</span>
+                    </div>
+                </div>
+                <div class="skill-category glass-card">
+                    <h3><i class="fas fa-server"></i> 后端开发</h3>
+                    <div class="skill-tags">
+                        <span class="skill-tag">Node.js</span>
+                        <span class="skill-tag">Python</span>
+                        <span class="skill-tag">Go</span>
+                        <span class="skill-tag">PostgreSQL</span>
+                        <span class="skill-tag">MongoDB</span>
+                        <span class="skill-tag">Redis</span>
+                        <span class="skill-tag">Docker</span>
+                        <span class="skill-tag">GraphQL</span>
+                    </div>
+                </div>
+                <div class="skill-category glass-card">
+                    <h3><i class="fas fa-wrench"></i> 工具 & 其他</h3>
+                    <div class="skill-tags">
+                        <span class="skill-tag">Git</span>
+                        <span class="skill-tag">Linux</span>
+                        <span class="skill-tag">Figma</span>
+                        <span class="skill-tag">CI/CD</span>
+                        <span class="skill-tag">AWS</span>
+                        <span class="skill-tag">Webpack</span>
+                        <span class="skill-tag">Jest</span>
+                        <span class="skill-tag">Agile</span>
+                    </div>
+                </div>
+            </div>
+            <!-- 技能进度条 -->
+            <div class="skill-bars">
+                <div class="skill-bar-item">
+                    <div class="skill-bar-info">
+                        <span>React / Vue</span>
+                        <span class="skill-percent" data-target="92">0%</span>
+                    </div>
+                    <div class="skill-bar-track">
+                        <div class="skill-bar-fill" style="width: 0%;" data-width="92%"></div>
+                    </div>
+                </div>
+                <div class="skill-bar-item">
+                    <div class="skill-bar-info">
+                        <span>Node.js / Python</span>
+                        <span class="skill-percent" data-target="88">0%</span>
+                    </div>
+                    <div class="skill-bar-track">
+                        <div class="skill-bar-fill" style="width: 0%;" data-width="88%"></div>
+                    </div>
+                </div>
+                <div class="skill-bar-item">
+                    <div class="skill-bar-info">
+                        <span>UI/UX Design</span>
+                        <span class="skill-percent" data-target="78">0%</span>
+                    </div>
+                    <div class="skill-bar-track">
+                        <div class="skill-bar-fill" style="width: 0%;" data-width="78%"></div>
+                    </div>
+                </div>
+                <div class="skill-bar-item">
+                    <div class="skill-bar-info">
+                        <span>DevOps & Cloud</span>
+                        <span class="skill-percent" data-target="75">0%</span>
+                    </div>
+                    <div class="skill-bar-track">
+                        <div class="skill-bar-fill" style="width: 0%;" data-width="75%"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 项目 -->
+    <section id="projects" class="section projects-section">
+        <div class="section-container">
+            <div class="section-header">
+                <span class="section-number">03.</span>
+                <h2 class="section-title">精选项目</h2>
+                <div class="section-divider"></div>
+            </div>
+            <div class="projects-grid">
+                <div class="project-card glass-card">
+                    <div class="project-image">
+                        <div class="project-placeholder">
+                            <i class="fas fa-cloud-sun"></i>
+                        </div>
+                        <div class="project-overlay">
+                            <a href="#" class="project-link" title="查看项目">
+                                <i class="fas fa-external-link-alt"></i>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="project-info">
+                        <span class="project-tag">全栈项目</span>
+                        <h3>智能天气仪表盘</h3>
+                        <p>实时天气数据可视化，支持多城市对比与智能预报。使用React + D3.js构建动态图表。</p>
+                        <div class="project-tech">
+                            <span>React</span>
+                            <span>D3.js</span>
+                            <span>Node.js</span>
+                            <span>API</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="project-card glass-card">
+                    <div class="project-image">
+                        <div class="project-placeholder">
+                            <i class="fas fa-tasks"></i>
+                        </div>
+                        <div class="project-overlay">
+                            <a href="#" class="project-link" title="查看项目">
+                                <i class="fas fa-external-link-alt"></i>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="project-info">
+                        <span class="project-tag">生产力工具</span>
+                        <h3>极简任务管理器</h3>
+                        <p>基于看板模式的任务管理应用，支持拖拽排序、标签分类与团队协作功能。</p>
+                        <div class="project-tech">
+                            <span>Vue.js</span>
+                            <span>Firebase</span>
+                            <span>PWA</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="project-card glass-card">
+                    <div class="project-image">
+                        <div class="project-placeholder">
+                            <i class="fas fa-palette"></i>
+                        </div>
+                        <div class="project-overlay">
+                            <a href="#" class="project-link" title="查看项目">
+                                <i class="fas fa-external-link-alt"></i>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="project-info">
+                        <span class="project-tag">设计系统</span>
+                        <h3>Aurora UI 组件库</h3>
+                        <p>开源的现代化组件库，包含50+组件，支持主题定制与无障碍访问标准。</p>
+                        <div class="project-tech">
+                            <span>TypeScript</span>
+                            <span>Storybook</span>
+                            <span>Rollup</span>
+                            <span>CSS-in-JS</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="projects-more">
+                <a href="#" class="btn btn-outline">
+                    <span>查看更多项目</span>
+                    <i class="fas fa-chevron-right"></i>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- 联系 -->
+    <section id="contact" class="section contact-section">
+        <div class="section-container">
+            <div class="section-header">
+                <span class="section-number">04.</span>
+                <h2 class="section-title">与我联系</h2>
+                <div class="section-divider"></div>
+            </div>
+            <div class="contact-content">
+                <p class="contact-intro">
+                    我始终对新的机会和合作保持开放态度。<br>
+                    无论是项目合作、技术交流，还是仅仅打个招呼，都欢迎随时联系。
+                </p>
+                <div class="contact-links">
+                    <a href="mailto:xt@example.com" class="contact-link-item glass-card">
+                        <i class="fas fa-envelope"></i>
+                        <span>Email</span>
+                        <small>xt@example.com</small>
+                    </a>
+                    <a href="https://github.com/xtt-xt" target="_blank" rel="noopener noreferrer" class="contact-link-item glass-card">
+                        <i class="fab fa-github"></i>
+                        <span>GitHub</span>
+                        <small>@xtt-xt</small>
+                    </a>
+                    <a href="#" class="contact-link-item glass-card">
+                        <i class="fab fa-linkedin"></i>
+                        <span>LinkedIn</span>
+                        <small>与我连接</small>
+                    </a>
+                    <a href="#" class="contact-link-item glass-card">
+                        <i class="fab fa-x-twitter"></i>
+                        <span>X / Twitter</span>
+                        <small>@xt</small>
+                    </a>
+                </div>
+                <form class="contact-form glass-card" id="contactForm">
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="name">姓名</label>
+                            <input type="text" id="name" placeholder="你的名字" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="email">邮箱</label>
+                            <input type="email" id="email" placeholder="your@email.com" required>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="subject">主题</label>
+                        <input type="text" id="subject" placeholder="消息主题" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="message">消息</label>
+                        <textarea id="message" rows="5" placeholder="写下你想说的话..." required></textarea>
+                    </div>
+                    <button type="submit" class="btn btn-primary submit-btn">
+                        <span>发送消息</span>
+                        <i class="fas fa-paper-plane"></i>
+                    </button>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- 页脚 -->
+    <footer class="footer">
+        <div class="footer-container">
+            <p class="footer-text">
+                Designed & Built with <i class="fas fa-heart heart-beat"></i> by <strong>XT</strong>
+            </p>
+            <p class="footer-copy">© 2024 XT. All Rights Reserved.</p>
+            <div class="footer-links">
+                <a href="#" aria-label="GitHub"><i class="fab fa-github"></i></a>
+                <a href="#" aria-label="LinkedIn"><i class="fab fa-linkedin"></i></a>
+                <a href="#" aria-label="Twitter"><i class="fab fa-x-twitter"></i></a>
+                <a href="mailto:xt@example.com" aria-label="Email"><i class="fas fa-envelope"></i></a>
+            </div>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
 </html>
