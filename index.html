@@ -67,7 +67,7 @@ h1 {
 }
 .search-box input {
   width: 100%;
-  padding: 12px 16px 12px 40px;
+  padding: 12px 16px 12px 44px;
   background: #f5f5f4;
   border: 2px solid #1c1917;
   box-shadow: 3px 3px 0 #1c1917;
@@ -75,29 +75,36 @@ h1 {
   outline: none;
   color: #1c1917;
 }
-/* CSS 放大镜图标 */
-.search-box::before {
-  content: "";
+/* 标准放大镜：圆环 + 斜手柄 */
+.search-icon {
   position: absolute;
   left: 16px;
   top: 50%;
   transform: translateY(-50%);
   width: 14px;
   height: 14px;
-  border: 2px solid #78716c;
-  border-radius: 50%;
   pointer-events: none;
 }
-.search-box::after {
+.search-icon::before {
   content: "";
   position: absolute;
-  left: 27px;
-  top: calc(50% + 5px);
-  transform: translateY(-50%) rotate(45deg);
-  width: 6px;
+  width: 12px;
+  height: 12px;
+  border: 2px solid #78716c;
+  border-radius: 50%;
+  top: 0;
+  left: 0;
+}
+.search-icon::after {
+  content: "";
+  position: absolute;
+  width: 7px;
   height: 2px;
   background: #78716c;
-  pointer-events: none;
+  bottom: -1px;
+  right: -2px;
+  transform: rotate(45deg);
+  transform-origin: left center;
 }
 .filter-tags {
   display: flex;
@@ -222,7 +229,7 @@ h1 {
   inset: 0;
   background: rgba(41,37,36,0.95);
   z-index: 1000;
-  padding: 16px;
+  padding: 12px;
   overflow-y: auto;
   align-items: center;
   justify-content: center;
@@ -231,8 +238,8 @@ h1 {
 .detail-note {
   background: var(--note-bg, #fef08a);
   width: 100%;
-  max-width: 600px;
-  padding: 24px;
+  max-width: 560px;
+  padding: 24px 20px 24px 24px;
   position: relative;
   box-shadow: 6px 8px 0 rgba(0,0,0,0.4);
   transform: rotate(-0.5deg);
@@ -248,11 +255,11 @@ h1 {
   background: rgba(255,255,255,0.35);
   box-shadow: 0 1px 3px rgba(0,0,0,0.15);
 }
-/* 关闭按钮收进内部，不再伸出弹窗外 */
+/* 关闭按钮：完全收在弹窗内部，距离边缘留足安全距离 */
 .detail-close {
   position: absolute;
-  top: 8px;
-  right: 8px;
+  top: 12px;
+  right: 12px;
   width: 32px;
   height: 32px;
   background: #ef4444;
@@ -269,10 +276,10 @@ h1 {
   z-index: 10;
 }
 .detail-title {
-  font-size: 24px;
+  font-size: 22px;
   font-weight: 900;
   margin-bottom: 4px;
-  padding-right: 36px;
+  padding-right: 40px;
 }
 .detail-sub {
   font-size: 13px;
@@ -386,6 +393,7 @@ h1 {
 
 <div class="controls">
   <div class="search-box">
+    <div class="search-icon"></div>
     <input type="text" id="searchInput" placeholder="搜索项目...">
   </div>
   <div class="filter-tags">
