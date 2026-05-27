@@ -75,14 +75,28 @@ h1 {
   outline: none;
   color: #1c1917;
 }
-.search-icon {
+/* CSS 放大镜图标 */
+.search-box::before {
+  content: "";
   position: absolute;
-  left: 14px;
+  left: 16px;
   top: 50%;
   transform: translateY(-50%);
-  font-size: 13px;
-  color: #78716c;
-  font-weight: 700;
+  width: 14px;
+  height: 14px;
+  border: 2px solid #78716c;
+  border-radius: 50%;
+  pointer-events: none;
+}
+.search-box::after {
+  content: "";
+  position: absolute;
+  left: 27px;
+  top: calc(50% + 5px);
+  transform: translateY(-50%) rotate(45deg);
+  width: 6px;
+  height: 2px;
+  background: #78716c;
   pointer-events: none;
 }
 .filter-tags {
@@ -128,6 +142,7 @@ h1 {
   cursor: pointer;
   transition: transform 0.2s, box-shadow 0.2s;
   box-shadow: 3px 4px 0 rgba(0,0,0,0.25);
+  word-break: break-word;
 }
 @media(min-width:640px){
   .note { width: calc(50% - 8px); }
@@ -195,9 +210,10 @@ h1 {
   color: rgba(0,0,0,0.5);
 }
 .note-arrow {
-  font-size: 14px;
+  font-size: 12px;
   color: rgba(0,0,0,0.4);
   font-weight: 700;
+  letter-spacing: 0.5px;
 }
 
 .overlay {
@@ -206,7 +222,7 @@ h1 {
   inset: 0;
   background: rgba(41,37,36,0.95);
   z-index: 1000;
-  padding: 20px;
+  padding: 16px;
   overflow-y: auto;
   align-items: center;
   justify-content: center;
@@ -216,10 +232,11 @@ h1 {
   background: var(--note-bg, #fef08a);
   width: 100%;
   max-width: 600px;
-  padding: 28px;
+  padding: 24px;
   position: relative;
   box-shadow: 6px 8px 0 rgba(0,0,0,0.4);
   transform: rotate(-0.5deg);
+  word-break: break-word;
 }
 .detail-tape {
   position: absolute;
@@ -231,12 +248,13 @@ h1 {
   background: rgba(255,255,255,0.35);
   box-shadow: 0 1px 3px rgba(0,0,0,0.15);
 }
+/* 关闭按钮收进内部，不再伸出弹窗外 */
 .detail-close {
   position: absolute;
-  top: -16px;
-  right: -8px;
-  width: 36px;
-  height: 36px;
+  top: 8px;
+  right: 8px;
+  width: 32px;
+  height: 32px;
   background: #ef4444;
   border: 2px solid #1c1917;
   box-shadow: 2px 2px 0 #1c1917;
@@ -245,14 +263,16 @@ h1 {
   align-items: center;
   justify-content: center;
   color: #fff;
-  font-size: 20px;
+  font-size: 18px;
   font-weight: 700;
   cursor: pointer;
+  z-index: 10;
 }
 .detail-title {
-  font-size: 26px;
+  font-size: 24px;
   font-weight: 900;
   margin-bottom: 4px;
+  padding-right: 36px;
 }
 .detail-sub {
   font-size: 13px;
@@ -308,6 +328,7 @@ h1 {
   font-size: 12px;
   font-weight: 700;
   color: #44403c;
+  word-break: break-word;
 }
 .detail-links {
   display: flex;
@@ -324,6 +345,8 @@ h1 {
   border: 2px solid #1c1917;
   box-shadow: 3px 3px 0 rgba(0,0,0,0.3);
   transition: all 0.1s;
+  word-break: break-word;
+  text-align: center;
 }
 .detail-link:active {
   transform: translate(3px, 3px);
@@ -363,7 +386,6 @@ h1 {
 
 <div class="controls">
   <div class="search-box">
-    <span class="search-icon">Search</span>
     <input type="text" id="searchInput" placeholder="搜索项目...">
   </div>
   <div class="filter-tags">
