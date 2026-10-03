@@ -228,6 +228,18 @@ check(
 const visibleAvatars = avatars.filter((i) => window.getComputedStyle(i).display !== 'none').length;
 check('头像按主题只显示一张', visibleAvatars === 1, `可见 ${visibleAvatars} 张`);
 
+/* ---------- 「个人主页」这张卡接上了仓库与线上地址 ---------- */
+await goto('/projects/site');
+await wait(200);
+const siteHrefs = [...doc.querySelectorAll('a')].map((a) => a.getAttribute('href') || '');
+check('个人主页有 GitHub 仓库链接', siteHrefs.includes('https://github.com/xtt-xt/xtt-xt.github.io'));
+check('个人主页有线上地址链接', siteHrefs.includes('https://xtt.p8.ink/'));
+const siteTabs = [...doc.querySelectorAll('.fui-tabs__tab')];
+const siteUpdTab = siteTabs.find((t) => t.textContent?.includes('更新'));
+if (siteUpdTab) press(siteUpdTab);
+await wait(600);
+check('个人主页也接上了 Releases', !!doc.querySelector('.xt-rel') || !!doc.querySelector('.fui-empty'));
+
 /* ---------- 公告页（往期公告） ---------- */
 await goto('/announcements');
 check('公告页标题', !!doc.querySelector('.xt-page-head h1')?.textContent?.includes('公告'));

@@ -23,6 +23,26 @@ export interface Announcement {
 
 export const ANNOUNCEMENTS: Announcement[] = [
   {
+    id: '2026-10-03-004',
+    date: '2026-10-03',
+    title: '主站有新家了',
+    tone: 'success',
+    body: (
+      <>
+        主站搬到自己域名上了：{' '}
+        <a href="https://xtt.p8.ink/" target="_blank" rel="noreferrer">
+          xtt.p8.ink
+        </a>
+        。源码放在{' '}
+        <a href="https://github.com/xtt-xt/xtt-xt.github.io" target="_blank" rel="noreferrer">
+          GitHub
+        </a>
+        ，以后推一次 main 就自动构建发布 —— 顺手把「个人主页」这张卡接上了仓库和线上地址，它的更新记录也接上
+        Releases 了。往期公告都收在这里：<Link to="/announcements">往期公告</Link>。
+      </>
+    ),
+  },
+  {
     id: '2026-10-03-003',
     date: '2026-10-03',
     title: 'FlatUI 上线了',

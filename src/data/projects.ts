@@ -96,10 +96,16 @@ export const PROJECTS: Project[] = [
     status: 'active',
     year: '2026',
     featured: true,
-    links: [],
-    intro: ['这个站自己：首页 / 项目 / 关于三个页面，纯静态，丢到 GitHub Pages 就能跑。'],
+    links: [
+      { label: 'GitHub', href: 'https://github.com/xtt-xt/xtt-xt.github.io', kind: 'repo' },
+      { label: '打开网站', href: 'https://xtt.p8.ink/', kind: 'site' },
+    ],
+    intro: ['这个站自己：首页 / 项目 / 关于三个页面，纯静态，源码推到 GitHub 就自动构建发布。'],
     highlights: [],
-    facts: [{ k: '技术栈', v: 'Vite + React 19 + TypeScript' }],
+    facts: [
+      { k: '技术栈', v: 'Vite + React 19 + TypeScript' },
+      { k: '线上地址', v: 'xtt.p8.ink' },
+    ],
   },
 ];
 
