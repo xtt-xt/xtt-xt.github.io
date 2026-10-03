@@ -1,0 +1,132 @@
+/* ============================================================
+   FlatUI Design Tokens · v1.0
+   扁平化设计系统 —— 零渐变 / 零柔和投影 / 单一主色 / 高对比
+   ============================================================ */
+
+:root {
+  /* ---- 中性色阶 Neutral ---- */
+  --fui-bg:            #ffffff;
+  --fui-bg-subtle:     #f7f7f8;
+  --fui-bg-muted:      #efeff1;
+  --fui-bg-inverse:    #141416;
+  --fui-border:        #e5e5e9;
+  --fui-border-strong: #c8c8cf;
+  --fui-ink:           #141416;
+  --fui-ink-2:         #55555e;
+  --fui-ink-3:         #8a8a93;
+  --fui-ink-inverse:   #fbfbfd;
+
+  /* ---- 品牌主色 Accent（唯一强调色） ---- */
+  --fui-accent:        #5340ff;
+  --fui-accent-hover:  #4130e8;
+  --fui-accent-active: #3627c9;
+  --fui-accent-soft:   #efedff;
+  --fui-accent-ink:    #ffffff;
+
+  /* ---- 语义色 Semantic ---- */
+  --fui-success:       #1c9a6c;
+  --fui-success-soft:  #e3f5ed;
+  --fui-warning:       #d97b06;
+  --fui-warning-soft:  #fdf1e0;
+  --fui-danger:        #e5484d;
+  --fui-danger-soft:   #fdebec;
+  --fui-info:          #3e7bfa;
+  --fui-info-soft:     #e9f1fe;
+
+  /* ---- 字体 Typography ---- */
+  --fui-font-sans: "Space Grotesk", -apple-system, "PingFang SC", "HarmonyOS Sans SC",
+    "Microsoft YaHei", "Noto Sans SC", sans-serif;
+  --fui-font-mono: "JetBrains Mono", "SFMono-Regular", Menlo, Consolas,
+    "PingFang SC", "Microsoft YaHei", monospace;
+
+  --fui-text-xs: 12px;  --fui-text-sm: 13px;  --fui-text-md: 14px;
+  --fui-text-lg: 16px;  --fui-text-xl: 18px;  --fui-text-2xl: 20px;
+  --fui-text-3xl: 24px; --fui-text-4xl: 30px; --fui-text-5xl: 38px;
+  --fui-text-6xl: 48px;
+
+  --fui-leading-tight: 1.25;
+  --fui-leading: 1.6;
+
+  /* ---- 间距 Spacing（4px 基网） ---- */
+  --fui-space-1: 4px;  --fui-space-2: 8px;  --fui-space-3: 12px;
+  --fui-space-4: 16px; --fui-space-5: 24px; --fui-space-6: 32px;
+  --fui-space-7: 48px; --fui-space-8: 64px;
+
+  /* ---- 圆角 Radius ---- */
+  --fui-radius-none: 0;
+  --fui-radius-sm: 4px;
+  --fui-radius-md: 8px;
+  --fui-radius-lg: 12px;
+  --fui-radius-pill: 999px;
+
+  /* ---- 控件尺寸 Control heights ---- */
+  --fui-h-sm: 28px;
+  --fui-h-md: 36px;
+  --fui-h-lg: 44px;
+
+  /* ---- 描边 Stroke ---- */
+  --fui-stroke: 1px;
+  --fui-stroke-strong: 1.5px;
+
+  /* ---- 扁平硬阴影（仅浮层使用） ---- */
+  --fui-shadow-pop: 4px 4px 0 rgba(20, 20, 22, 0.07);
+  --fui-shadow-modal: 8px 8px 0 rgba(20, 20, 22, 0.10);
+
+  /* ---- 动效 Motion ---- */
+  --fui-dur-1: 120ms;
+  --fui-dur-2: 200ms;
+  --fui-dur-3: 320ms;
+  --fui-ease: cubic-bezier(0.2, 0.7, 0.3, 1);
+
+  /* ---- 层级 z-index ---- */
+  --fui-z-dropdown: 100;
+  --fui-z-sticky: 200;
+  --fui-z-overlay: 400;
+  --fui-z-modal: 500;
+  --fui-z-toast: 600;
+  --fui-z-tooltip: 700;
+}
+
+/* ---- 暗色主题 Dark ---- */
+[data-theme="dark"] {
+  --fui-bg:            #141416;
+  --fui-bg-subtle:     #1b1b1f;
+  --fui-bg-muted:      #232329;
+  --fui-bg-inverse:    #fbfbfd;
+  --fui-border:        #2d2d34;
+  --fui-border-strong: #43434d;
+  --fui-ink:           #f4f4f6;
+  --fui-ink-2:         #a6a6af;
+  --fui-ink-3:         #6e6e78;
+  --fui-ink-inverse:   #141416;
+
+  --fui-accent:        #8b7fff;
+  --fui-accent-hover:  #a197ff;
+  --fui-accent-active: #b6adff;
+  --fui-accent-soft:   #26204d;
+  --fui-accent-ink:    #141416;
+
+  --fui-success:       #3fb98a;
+  --fui-success-soft:  #14332a;
+  --fui-warning:       #f0a23c;
+  --fui-warning-soft:  #3a2c12;
+  --fui-danger:        #f1666b;
+  --fui-danger-soft:   #3d1b1c;
+  --fui-info:          #6b9bff;
+  --fui-info-soft:     #182a4d;
+
+  --fui-shadow-pop: 4px 4px 0 rgba(0, 0, 0, 0.35);
+  --fui-shadow-modal: 8px 8px 0 rgba(0, 0, 0, 0.45);
+}
+
+/* ---- 基础复位 Base ---- */
+.fui-root, .fui-root * { box-sizing: border-box; }
+.fui-root {
+  font-family: var(--fui-font-sans);
+  color: var(--fui-ink);
+  font-size: var(--fui-text-md);
+  line-height: var(--fui-leading);
+  -webkit-font-smoothing: antialiased;
+}
+
+::selection { background: var(--fui-accent); color: var(--fui-accent-ink); }
