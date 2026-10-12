@@ -297,6 +297,54 @@ if (themeBtn) {
   check('主题切换', false, '没找到按钮');
 }
 
+/* ---------- 设置页 · 自定义配色 ---------- */
+await goto('/settings');
+check('设置页标题', !!doc.querySelector('.xt-page-head h1')?.textContent?.includes('设置'));
+const swatches = [...doc.querySelectorAll('.xt-swatch')];
+check('设置了预设色板', swatches.length >= 6, `${swatches.length} 个`);
+check('有色阶预览（5 个变量）', doc.querySelectorAll('.xt-scale__cell').length === 5);
+
+const rootStyle = doc.documentElement.style;
+/* 上面刚把主题切成暗色，先切回亮色 —— 亮色下主色就该原样等于选的那个 */
+const themeBtn2 = doc.querySelector('button[aria-label="切换主题"]');
+if (themeBtn2 && doc.documentElement.dataset.theme === 'dark') {
+  press(themeBtn2);
+  await wait(150);
+}
+const pick = swatches.find((s) => s.dataset.hex === '#1c9a6c') || swatches[0];
+const wantHex = (pick?.dataset.hex || '').toLowerCase();
+press(pick);
+await wait(150);
+check(
+  '选了预设色，主色变量即时生效',
+  rootStyle.getPropertyValue('--fui-accent') === wantHex,
+  `${rootStyle.getPropertyValue('--fui-accent') || '空'} / 期望 ${wantHex}`,
+);
+check(
+  '同时派生了 hover / soft / ink',
+  ['--fui-accent-hover', '--fui-accent-soft', '--fui-accent-ink'].every((v) =>
+    /^#[0-9a-f]{6}$/.test(rootStyle.getPropertyValue(v)),
+  ),
+);
+
+/* 亮色 / 暗色各算一套（暗色下主色会提亮） */
+const accentBefore = rootStyle.getPropertyValue('--fui-accent');
+if (themeBtn2) {
+  press(themeBtn2);
+  await wait(150);
+  const accentAfter = rootStyle.getPropertyValue('--fui-accent');
+  check('换主题会重算一套', accentAfter !== accentBefore, `${accentBefore} → ${accentAfter}`);
+} else {
+  check('换主题会重算一套', false, '没找到切换主题按钮');
+}
+
+/* 恢复默认 */
+const resetBtn = [...doc.querySelectorAll('button')].find((b) => b.textContent?.includes('恢复默认'));
+check('「恢复默认」按钮可用', !!resetBtn && !resetBtn.disabled);
+press(resetBtn);
+await wait(150);
+check('恢复默认后交还给默认主色', !rootStyle.getPropertyValue('--fui-accent'));
+
 /* ---------- 手机端抽屉 ---------- */
 const burger = doc.querySelector('.xt-burger');
 check('汉堡按钮在', !!burger);
@@ -340,6 +388,56 @@ if (fs.existsSync(singleEntry)) {
   check('换了公告 id 会重新出现', !!newDoc.querySelector('.xt-anno'));
 } else {
   check('公告关闭状态持久化', false, '没找到 dist-single 产物');
+}
+
+/* ---------- 自定义主色：首屏内联脚本 + 持久化（另开一个 http 源实例，localStorage 才可用） ---------- */
+if (fs.existsSync(singleEntry)) {
+  const quiet = new VirtualConsole();
+  const dCol = new JSDOM(fs.readFileSync(singleEntry, 'utf8'), {
+    runScripts: 'dangerously',
+    pretendToBeVisual: true,
+    url: 'https://xing-tian.test/index.html',
+    virtualConsole: quiet,
+    beforeParse(w) {
+      try {
+        w.localStorage.setItem('xt-accent', '#1c9a6c');
+      } catch {
+        /* 忽略 */
+      }
+    },
+  });
+  await wait(600);
+  const styleCol = dCol.window.document.documentElement.style;
+  check(
+    '首屏脚本就用上了自定义主色',
+    styleCol.getPropertyValue('--fui-accent') === '#1c9a6c',
+    styleCol.getPropertyValue('--fui-accent') || '空',
+  );
+  check(
+    '首屏也派生了 soft / ink',
+    /^#[0-9a-f]{6}$/.test(styleCol.getPropertyValue('--fui-accent-soft')) &&
+      /^#[0-9a-f]{6}$/.test(styleCol.getPropertyValue('--fui-accent-ink')),
+  );
+
+  dCol.window.location.hash = '#/settings';
+  dCol.window.dispatchEvent(new dCol.window.Event('hashchange'));
+  await wait(300);
+  const pinkSwatch = [...dCol.window.document.querySelectorAll('.xt-swatch')].find(
+    (s) => s.dataset.hex === '#ec4899',
+  );
+  pinkSwatch?.dispatchEvent(new dCol.window.MouseEvent('click', { bubbles: true, cancelable: true }));
+  await wait(150);
+  check(
+    '选色写进本地存储',
+    dCol.window.localStorage.getItem('xt-accent') === '#ec4899',
+    dCol.window.localStorage.getItem('xt-accent') || '空',
+  );
+  check(
+    '色板上只亮一个选中态',
+    dCol.window.document.querySelectorAll('.xt-swatch.is-active').length === 1,
+  );
+} else {
+  check('自定义主色持久化', false, '没找到 dist-single 产物');
 }
 
 console.log(`=== 星天的主站 · ${which} 冒烟 ===`);

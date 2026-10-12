@@ -27,6 +27,19 @@ node tools/smoke.mjs dist-single   # 单文件版也跑一遍
 
 > 一行版：`npm run post`（构建后处理 + 两个冒烟）
 
+**手机端（Termux / proot 里的 Ubuntu）用 Makefile 更省事**：
+
+```bash
+make            # 看全部命令
+make check      # 构建 + 冒烟（dist 与 dist-single 各一遍）
+make serve      # 起个零依赖静态预览服务器 → 手机浏览器开 http://127.0.0.1:4173/
+make dev        # 开发服务器（热更新）→ http://127.0.0.1:5173/
+make pack       # 打一份源码压缩包 xing-tian-source.zip（排除 node_modules/dist/.git）
+```
+
+> 预览服务器是 `tools/preview.mjs`（Node 原生 http，零依赖），服务的是 `dist/`。
+> 直接双击 `dist/index.html` 也能看（file:// 下站点本身没问题）。
+
 ## 部署到 GitHub Pages
 
 **方式 A：GitHub Actions（推荐）**
@@ -63,6 +76,7 @@ node tools/smoke.mjs dist-single   # 单文件版也跑一遍
 | 加 / 改项目（卡片 + 详情页） | `src/data/projects.ts` |
 | 加一个页面 | `src/App.tsx` 的 `ROUTES` 加一行 + `src/pages/` 写个组件 |
 | 主色 / 圆角 / 字体 | `src/flat-ui/tokens.css`（改 `--fui-accent` 一处全站生效） |
+| **访客自定义主色**（设置页那套：派生规则、预设色板） | `src/lib/accent.ts`（首屏脚本在 `index.html` 里有一份同款算法，要一起改） |
 | 站点布局样式 | `src/app.css` |
 
 ## 说明
@@ -76,5 +90,9 @@ node tools/smoke.mjs dist-single   # 单文件版也跑一遍
 - **路由**：自己写的 hash 路由（`src/router.tsx`，约 100 行，零依赖）。用 hash 是为了静态托管
   刷新/直链不 404，也不需要在 GitHub Pages 上搞 404 重写。
 - **主题**：亮 / 暗两套，跟随系统 + 本地记忆（localStorage 的 `xt-theme`），首屏前置脚本防闪白。
+- **自定义配色**：导航「设置」页里可以换主色（8 个预设 + 系统取色器）。只换一个色，
+  hover / active / soft / ink 由 `src/lib/accent.ts` 按亮暗主题各派生一套（色上文字按对比度自动取白或黑）。
+  选中后写在 `<html>` 的内联变量上（优先级最高），并存 localStorage 的 `xt-accent`，**只在这台设备生效**，
+  换设备 / 别人访问还是默认紫；`index.html` 首屏脚本里内联了同一套算法，避免刷新闪一下默认色。
 - **字体**：Space Grotesk / JetBrains Mono 走 Google Fonts CDN，离线回落系统字体。
 - **控件库**：`src/flat-ui/` 是从 FlatUI 控件库拷过来的源码，没改功能（只多导出了 `useSlideIndicator`）。

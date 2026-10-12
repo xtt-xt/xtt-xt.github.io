@@ -83,3 +83,19 @@ export const IconCalendar = ({ size = 16, className, style }: P) => (
     <line x1="16" y1="3" x2="16" y2="7" />
   </svg>
 );
+
+export const IconPalette = ({ size = 16, className, style }: P) => (
+  <svg {...svgProps(size)} className={className} style={style}>
+    <path d="M12 3a9 9 0 1 0 0 18c.9 0 1.6-.7 1.6-1.6 0-.4-.2-.8-.4-1.1-.3-.3-.4-.7-.4-1.1 0-.9.7-1.6 1.6-1.6h1.9c2.7 0 4.9-2.2 4.9-4.9C21.2 6.6 17.1 3 12 3z" />
+    <circle cx="7.5" cy="12" r="1.1" fill="currentColor" stroke="none" />
+    <circle cx="9.5" cy="8" r="1.1" fill="currentColor" stroke="none" />
+    <circle cx="14" cy="7" r="1.1" fill="currentColor" stroke="none" />
+    <circle cx="17" cy="10.5" r="1.1" fill="currentColor" stroke="none" />
+  </svg>
+);
+
+export const IconCheck = ({ size = 16, className, style }: P) => (
+  <svg {...svgProps(size)} className={className} style={style}>
+    <polyline points="20 6 9 17 4 12" />
+  </svg>
+);

@@ -27,9 +27,9 @@
   opacity: 0.45; cursor: not-allowed; transform: none;
 }
 
-.fui-btn--primary { --_bg: var(--fui-accent); --_fg: #ffffff; --_bd: var(--fui-accent); }
+/* 色上的文字统一走 accent-ink：默认紫不变，自定义主色时按对比度自动取白或黑 */
+.fui-btn--primary { --_bg: var(--fui-accent); --_fg: var(--fui-accent-ink); --_bd: var(--fui-accent); }
 .fui-btn--primary:hover { background: var(--fui-accent-hover); border-color: var(--fui-accent-hover); }
-[data-theme="dark"] .fui-btn--primary { --_fg: #141416; }
 
 .fui-btn--secondary { --_bg: var(--fui-ink); --_fg: var(--fui-bg); --_bd: var(--fui-ink); }
 
@@ -345,7 +345,7 @@
   border-radius: var(--fui-radius-sm); white-space: nowrap;
   background: var(--fui-bg-muted); color: var(--fui-ink-2);
 }
-.fui-badge--solid.fui-badge--accent { background: var(--fui-accent); color: #fff; }
+.fui-badge--solid.fui-badge--accent { background: var(--fui-accent); color: var(--fui-accent-ink); }
 .fui-badge--solid.fui-badge--success { background: var(--fui-success); color: #fff; }
 .fui-badge--solid.fui-badge--warning { background: var(--fui-warning); color: #fff; }
 .fui-badge--solid.fui-badge--danger  { background: var(--fui-danger); color: #fff; }
@@ -652,7 +652,7 @@
   transition: all var(--fui-dur-1) var(--fui-ease);
 }
 .fui-pagination__btn:hover:not(:disabled) { border-color: var(--fui-accent); color: var(--fui-accent); }
-.fui-pagination__btn.is-active { background: var(--fui-accent); border-color: var(--fui-accent); color: #fff; font-weight: 600; }
+.fui-pagination__btn.is-active { background: var(--fui-accent); border-color: var(--fui-accent); color: var(--fui-accent-ink); font-weight: 600; }
 .fui-pagination__btn:disabled { opacity: 0.4; cursor: not-allowed; }
 .fui-pagination__ellipsis { color: var(--fui-ink-3); padding: 0 2px; }
 
@@ -668,7 +668,7 @@
   border: var(--fui-stroke) solid var(--fui-border);
   transition: all var(--fui-dur-2) var(--fui-ease);
 }
-.fui-step.is-active .fui-step__dot { background: var(--fui-accent); border-color: var(--fui-accent); color: #fff; }
+.fui-step.is-active .fui-step__dot { background: var(--fui-accent); border-color: var(--fui-accent); color: var(--fui-accent-ink); }
 .fui-step.is-done .fui-step__dot { background: var(--fui-accent-soft); border-color: var(--fui-accent); color: var(--fui-accent); }
 .fui-step__line { flex: 1; height: 1.5px; background: var(--fui-border); margin: 0 var(--fui-space-2); }
 .fui-step.is-done .fui-step__line { background: var(--fui-accent); }

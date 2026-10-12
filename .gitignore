@@ -1,5 +1,11 @@
+# 依赖与构建产物
 node_modules/
 dist/
 dist-single/
-*.log
+
+# 本地打包出来的源码包（make pack）
+*.zip
+
+# 杂项
 .DS_Store
+*.log

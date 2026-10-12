@@ -25,6 +25,61 @@
         }
         document.documentElement.dataset.theme = t;
       } catch (e) { /* file:// 下 localStorage 可能不可用，忽略 */ }
+
+      /* 访客自己挑的主色也在这里先算一遍，避免首屏闪一下默认紫。
+         算法与 src/lib/accent.ts 的 deriveAccent 完全一致（改那边记得改这里）。 */
+      try {
+        var am = /^#?([0-9a-f]{3}|[0-9a-f]{6})$/i.exec(localStorage.getItem('xt-accent') || '');
+        if (am) {
+          var raw = am[1].toLowerCase();
+          if (raw.length === 3) raw = raw[0] + raw[0] + raw[1] + raw[1] + raw[2] + raw[2];
+          var BASE = [0, 1, 2].map(function (i) { return parseInt(raw.substr(i * 2, 2), 16); });
+          var r = BASE[0] / 255, g = BASE[1] / 255, b = BASE[2] / 255;
+          var mx = Math.max(r, g, b), mn = Math.min(r, g, b), L = (mx + mn) / 2, d = mx - mn;
+          var H = 0, S = 0;
+          if (d) {
+            S = L > 0.5 ? d / (2 - mx - mn) : d / (mx + mn);
+            H = (mx === r ? (g - b) / d + (g < b ? 6 : 0) : mx === g ? (b - r) / d + 2 : (r - g) / d + 4) * 60;
+          }
+          /* 工具：都按 0~255 的数组来算 */
+          var toHex = function (a) {
+            return '#' + a.map(function (v) {
+              return ('0' + Math.max(0, Math.min(255, Math.round(v))).toString(16)).slice(-2);
+            }).join('');
+          };
+          var toRgb = function (h, s, l) {
+            var c = (1 - Math.abs(2 * l - 1)) * s, p = (((h % 360) + 360) % 360) / 60, x = c * (1 - Math.abs((p % 2) - 1));
+            var q = p < 1 ? [c, x, 0] : p < 2 ? [x, c, 0] : p < 3 ? [0, c, x] : p < 4 ? [0, x, c] : p < 5 ? [x, 0, c] : [c, 0, x];
+            var m = l - c / 2;
+            return [q[0] + m, q[1] + m, q[2] + m].map(function (v) { return v * 255; });
+          };
+          var mix = function (a, c, w) { return a.map(function (v, i) { return v * w + c[i] * (1 - w); }); };
+          var lum = function (a) {
+            var v = a.map(function (q) { var c = q / 255; return c <= 0.03928 ? c / 12.92 : Math.pow((c + 0.055) / 1.055, 2.4); });
+            return 0.2126 * v[0] + 0.7152 * v[1] + 0.0722 * v[2];
+          };
+          var contrast = function (a, c) { var x = lum(a), y = lum(c); return (Math.max(x, y) + 0.05) / (Math.min(x, y) + 0.05); };
+          var WHITE = [255, 255, 255], INKDARK = [20, 20, 22];
+          var vars = {};
+          if (document.documentElement.dataset.theme === 'dark') {
+            var l2 = L < 0.68 ? L + (0.68 - L) * 0.85 : L;
+            var s2 = Math.min(1, S * 0.95);
+            var ac = toRgb(H, s2, l2);
+            vars['--fui-accent'] = toHex(ac);
+            vars['--fui-accent-hover'] = toHex(toRgb(H, s2, Math.min(1, l2 + 0.07)));
+            vars['--fui-accent-active'] = toHex(toRgb(H, s2, Math.min(1, l2 + 0.14)));
+            vars['--fui-accent-soft'] = toHex(mix(ac, INKDARK, 0.2));
+            vars['--fui-accent-ink'] = toHex(contrast(ac, INKDARK) >= contrast(ac, WHITE) ? INKDARK : WHITE);
+          } else {
+            vars['--fui-accent'] = toHex(BASE);
+            vars['--fui-accent-hover'] = toHex(toRgb(H, S, Math.max(0, L - 0.07)));
+            vars['--fui-accent-active'] = toHex(toRgb(H, S, Math.max(0, L - 0.13)));
+            vars['--fui-accent-soft'] = toHex(mix(BASE, WHITE, 0.11));
+            vars['--fui-accent-ink'] = toHex(contrast(BASE, WHITE) >= contrast(BASE, INKDARK) ? WHITE : INKDARK);
+          }
+          for (var k in vars) document.documentElement.style.setProperty(k, vars[k]);
+        }
+      } catch (e2) { /* 拿不到就用默认色 */ }
     </script>
   </head>
   <body>

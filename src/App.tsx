@@ -1,8 +1,9 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useSyncExternalStore } from 'react';
 import type { ReactNode } from 'react';
 import { Badge, Drawer, Icons, IconButton, Tooltip } from './flat-ui';
 import { Link, matchPath, useRoute } from './router';
 import { SITE } from './site';
+import { applyAccent, getAccent, subscribeAccent } from './lib/accent';
 import { bySlug } from './data/projects';
 import { IconCode, IconSpark } from './appIcons';
 import Home from './pages/Home';
@@ -11,6 +12,7 @@ import ProjectDetail from './pages/ProjectDetail';
 import About from './pages/About';
 import Announcements from './pages/Announcements';
 import UpdateDetail from './pages/UpdateDetail';
+import Settings from './pages/Settings';
 import NotFound from './pages/NotFound';
 
 /* ============================================================
@@ -36,6 +38,7 @@ const ROUTES: RouteDef[] = [
   },
   { path: '/about', title: () => '关于', render: () => <About /> },
   { path: '/announcements', title: () => '公告', render: () => <Announcements /> },
+  { path: '/settings', title: () => '设置', render: () => <Settings /> },
   {
     path: '/projects/:slug/updates/:tag',
     title: (p) => `${p.tag} · ${bySlug(p.slug)?.name ?? '更新'}`,
@@ -59,6 +62,8 @@ export default function App() {
   const route = useRoute();
   const [theme, setTheme] = useState<'light' | 'dark'>(readTheme);
   const [menuOpen, setMenuOpen] = useState(false);
+  /* 访客自己挑的主色（localStorage 里的那一份） */
+  const accent = useSyncExternalStore(subscribeAccent, getAccent);
 
   useEffect(() => {
     document.documentElement.dataset.theme = theme;
@@ -68,6 +73,11 @@ export default function App() {
       /* 忽略 */
     }
   }, [theme]);
+
+  /* 主色写在 <html> 的内联变量上；换主题要重算（亮暗各一套） */
+  useEffect(() => {
+    applyAccent(accent, theme);
+  }, [accent, theme]);
 
   const hit = ROUTES.map((r) => ({ r, params: matchPath(r.path, route.path) })).find((x) => x.params !== null);
   const params: Params = hit?.params ?? {};

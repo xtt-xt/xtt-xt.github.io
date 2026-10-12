@@ -25,6 +25,7 @@ export const SITE = {
     { path: '/projects', label: '项目', en: 'Projects' },
     { path: '/about', label: '关于', en: 'About' },
     { path: '/announcements', label: '公告', en: 'Announcements' },
+    { path: '/settings', label: '设置', en: 'Settings' },
   ],
 } as const;
 
