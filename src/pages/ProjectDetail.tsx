@@ -30,6 +30,7 @@ export default function ProjectDetail({ slug }: { slug: string }) {
     { k: '状态', v: status.label },
     { k: '标签', v: project.tags.join(' · ') },
     { k: '时间', v: project.year ?? '（待填）' },
+    ...(project.license ? [{ k: '开源协议', v: project.license }] : []),
     ...(project.facts ?? []),
   ];
 

@@ -27,6 +27,8 @@ export interface Project {
   status: ProjectStatus;
   /** 年份或时间段，随便写 */
   year?: string;
+  /** 开源协议（如 MIT / GPL-3.0）；没填的话详情页不显示「开源协议」这行 */
+  license?: string;
   links?: ProjectLink[];
   /** 是否出现在首页「精选」里 */
   featured?: boolean;
@@ -62,6 +64,38 @@ export const FILTERS: { value: string; label: string }[] = [
 
 export const PROJECTS: Project[] = [
   {
+    slug: 'mcpbox',
+    name: 'MCPBox',
+    en: '手机上的 MCP 文件盒',
+    tagline: '把 Android 手机变成 MCP 服务器：AI 能读写手机文件、跑命令、开浏览器，每一步都要你点同意。',
+    kind: 'app',
+    tags: ['Android', 'Kotlin', 'MCP', 'AI'],
+    status: 'active',
+    year: '2026',
+    license: 'GPL-3.0',
+    featured: true,
+    links: [
+      { label: 'GitHub', href: 'https://github.com/xtt-xt/MCPBox', kind: 'repo' },
+      { label: '下载 APK', href: 'https://github.com/xtt-xt/MCPBox/releases', kind: 'download' },
+    ],
+    intro: [
+      '把 Android 手机变成 MCP 服务器：AI 客户端连上它，就能读写手机里的文件、执行终端命令、用内置浏览器上网、操作界面。',
+      '自带 70 多个工具，权限分四态（允许 / 询问 / 拒绝 / 跟随预设），危险操作默认都要你在悬浮窗或通知栏里点一下同意；除了应用沙箱，还能借 Root / Shizuku 做更重的事。',
+    ],
+    highlights: [
+      '逐次审批：写文件、跑命令这类操作默认都要过你这一关，还能选「每次都问」还是「这个会话全允许」',
+      '工具包与会话隔离：只给 AI 开它这轮用得到的那几个工具，免得几十个工具全塞给模型',
+      '记忆库：AI 可以往里记项目笔记，换客户端也带得走，支持导入导出与备份',
+      '静态站点托管：手机里的文件直接当网页，用内置浏览器就能看效果',
+    ],
+    facts: [
+      { k: '技术栈', v: 'Kotlin + Jetpack Compose' },
+      { k: '规模', v: '70+ 个 MCP 工具 / 7 个内置工具包' },
+      { k: '最新版本', v: 'v1.2.2（2026-10-09）' },
+      { k: '安装包', v: 'release APK 约 2.7 MB' },
+    ],
+  },
+  {
     slug: 'flat-ui',
     name: 'FlatUI',
     en: '扁平控件库',
@@ -70,6 +104,7 @@ export const PROJECTS: Project[] = [
     tags: ['设计系统', 'React', 'CSS'],
     status: 'active',
     year: '2026',
+    license: 'MIT',
     featured: true,
     links: [
       { label: 'GitHub', href: 'https://github.com/xtt-xt/flat-ui', kind: 'repo' },

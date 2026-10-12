@@ -118,7 +118,16 @@ check('首页首屏', text().includes('我是'));
 check('「最近在做」没有占位小标题', !text().includes('占位，之后换成真的进度'));
 check('「最近在做」卡片没有那句占位说明', !text().includes('这里以后可以放时间线'));
 const cards = doc.querySelectorAll('.xt-card').length;
-check('首页精选卡片', cards >= 1, `${cards} 张`);
+check('首页精选卡片', cards === 3, `${cards} 张`);
+const heroStats = [...doc.querySelectorAll('.xt-stat')].map((s) => [
+  s.querySelector('.xt-stat__num')?.textContent,
+  s.querySelector('.xt-stat__label')?.textContent,
+]);
+check(
+  '首屏统计跟着项目数走',
+  heroStats.length === 2 && heroStats[0][0] === '3' && heroStats[0][1] === '项目' && heroStats[1][0] === '3' && heroStats[1][1] === '首页精选',
+  JSON.stringify(heroStats),
+);
 
 /* ---------- 页脚构建时间（用来分辨缓存） ---------- */
 const buildTag = doc.querySelector('.xt-foot__build')?.textContent || '';
@@ -160,25 +169,20 @@ await goto('/projects');
 check('项目页标题', !!doc.querySelector('.xt-page-head h1')?.textContent?.includes('项目'));
 check('公告只在首页显示', !doc.querySelector('.xt-anno'));
 const listCards = doc.querySelectorAll('.xt-card').length;
-check('项目列表卡片', listCards >= 1, `${listCards} 张`);
+check('项目列表卡片', listCards === 3, `${listCards} 张`);
 
 /* 分段控制器筛选 */
 const segs = [...doc.querySelectorAll('.fui-segmented__item')];
-check('分类筛选存在', segs.length >= 3, `${segs.length} 个`);
-press(segs[2]);
-await wait(150);
-const webCount = doc.querySelectorAll('.xt-card').length;
-check('按分类筛选（网页）', webCount >= 1 && webCount < listCards, `网页 → ${webCount} 张`);
-press(segs[3]);
-await wait(150);
-const libCount = doc.querySelectorAll('.xt-card').length;
-check('按分类筛选（库）', libCount >= 1 && libCount < listCards, `库 → ${libCount} 张`);
-press(segs[1]);
-await wait(150);
-check(
-  '筛选无结果时有提示',
-  !!doc.querySelector('.fui-empty') && doc.querySelectorAll('.xt-card').length === 0,
-);
+check('分类筛选存在', segs.length >= 4, `${segs.length} 个`);
+const countAt = async (i) => {
+  press(segs[i]);
+  await wait(150);
+  return doc.querySelectorAll('.xt-card').length;
+};
+check('按分类筛选（应用）', (await countAt(1)) === 1, '应用 → 1 张');
+check('按分类筛选（网页）', (await countAt(2)) === 1, '网页 → 1 张');
+check('按分类筛选（库）', (await countAt(3)) === 1, '库 → 1 张');
+check('筛选无结果时有提示', (await countAt(4)) === 0 && !!doc.querySelector('.fui-empty'));
 press(segs[0]);
 await wait(120);
 
@@ -239,6 +243,34 @@ const siteUpdTab = siteTabs.find((t) => t.textContent?.includes('更新'));
 if (siteUpdTab) press(siteUpdTab);
 await wait(600);
 check('个人主页也接上了 Releases', !!doc.querySelector('.xt-rel') || !!doc.querySelector('.fui-empty'));
+
+/* ---------- MCPBox 详情页（新加的项目） ---------- */
+await goto('/projects/mcpbox');
+await wait(250);
+check('MCPBox 详情页', doc.querySelector('.xt-detail__title')?.textContent === 'MCPBox');
+press(doc.querySelector('.fui-tabs__tab')); // 回到「概览」（上一个项目可能停在别的标签页）
+await wait(200);
+const kvOf = () =>
+  [...doc.querySelectorAll('.xt-kv__row')].reduce((acc, r) => {
+    acc[r.querySelector('.xt-kv__k')?.textContent || ''] = r.querySelector('.xt-kv__v')?.textContent || '';
+    return acc;
+  }, {});
+const mcpKv = kvOf();
+check('MCPBox 有「开源协议」行', mcpKv['开源协议'] === 'GPL-3.0', mcpKv['开源协议'] || '没有这行');
+check('MCPBox 分类是应用', mcpKv['分类'] === '应用', mcpKv['分类'] || '');
+const mcpHrefs = [...doc.querySelectorAll('a')].map((a) => a.getAttribute('href') || '');
+check('MCPBox 有 GitHub 与下载 APK', mcpHrefs.includes('https://github.com/xtt-xt/MCPBox') && mcpHrefs.includes('https://github.com/xtt-xt/MCPBox/releases'));
+
+/* ---------- 开源协议：FlatUI 是 MIT，个人主页没协议就不显示这行 ---------- */
+await goto('/projects/flat-ui');
+await wait(250);
+const fuiKv = kvOf();
+check('FlatUI 开源协议是 MIT', fuiKv['开源协议'] === 'MIT', fuiKv['开源协议'] || '没有这行');
+check('换项目后回到「概览」标签', doc.querySelector('.fui-tabs__tab.is-active')?.textContent?.includes('概览'));
+await goto('/projects/site');
+await wait(250);
+const siteKvKeys = [...doc.querySelectorAll('.xt-kv__k')].map((k) => k.textContent);
+check('没填协议的项目不显示这行', !siteKvKeys.includes('开源协议'));
 
 /* ---------- 公告页（往期公告） ---------- */
 await goto('/announcements');

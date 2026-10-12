@@ -34,7 +34,8 @@ const ROUTES: RouteDef[] = [
   {
     path: '/projects/:slug',
     title: (p) => bySlug(p.slug)?.name ?? '项目',
-    render: (p) => <ProjectDetail slug={p.slug} />,
+    /* key 让换项目时组件整个重挂载 —— 否则「更新」标签会跟着带到下一个项目上 */
+    render: (p) => <ProjectDetail key={p.slug} slug={p.slug} />,
   },
   { path: '/about', title: () => '关于', render: () => <About /> },
   { path: '/announcements', title: () => '公告', render: () => <Announcements /> },
